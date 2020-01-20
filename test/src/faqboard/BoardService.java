@@ -36,4 +36,15 @@ public class BoardService {
 		int count = boardDAO.getCountsearchList(searchVal, selectVal);
 		return count;
 	}
+	
+	public List<NoticeBean> getNoticeList(List<NoticeBean> noticeList, int startRow) {
+		noticeList = boardDAO.getNoticeList(noticeList, startRow);
+		
+		return noticeList;
+	}
+	
+	public int getNoticeCount() {
+		int count = boardDAO.getNoticeCount();
+		return count;
+	}
 }

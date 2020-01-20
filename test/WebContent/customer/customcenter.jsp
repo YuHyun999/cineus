@@ -4,8 +4,12 @@
     
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%	request.setCharacterEncoding("UTF-8"); %>
     
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
+
+<c:set var="boardList" value = "${boardList}"/>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -28,7 +32,7 @@
 		<hr class="center-home-line">
 	</div>
 </div>
-<div class = "container">
+<div class = "container width-fixed">
 	<div class="center-menu">
 		<div>
 			<h2><span class="center-title">무엇이 궁금하신가요?</span></h2>
@@ -41,23 +45,53 @@
 	<div class = "FAQ">
 			<div>
 				<div class = "search-label">
-				<label>FAQ 검색</label>
+				<label id = "faqlabel">FAQ 검색</label>
 				</div>
 				<input class = "search" placeholder = "    검색어를 입력하세요">
 			</div>
 	</div>
-	<div class = "customer-box">
-	<div class = "box-header" id = "FAQ-content">
-		<div>
-			<h4>자주 묻는 질문 BEST 5</h4>
+	<div class = "customer-box-main">
+		<div class = "customer-box faqtop5">
+			<div class = "box-header" id = "FAQ-content">
+					<h4>자주 묻는 질문 BEST 5</h4>
+			</div>
+			<div class = "box-body">
+				<ul id = "centermainFaq" class = "faqtop5">
+					<c:forEach   var="bean" items = "${boardList}" begin="0" end="3" step="1" varStatus = "i">
+						<li>
+							<a class = "showdown title top5"  href = "${contextPath}/customerboard/FAQcenter.do?#pageNum${i.count}">
+								<strong>${i.count}</strong>
+								<em>${bean.faq_group}</em>
+								<span>${bean.question}</span>
+							</a>
+						</li>
+					</c:forEach>
+					<c:forEach   var="bean" items = "${boardList}" begin="4" end="4" step="1" varStatus = "i">
+						<li style = "border:none;">
+							<a class = "showdown title top5"  href = "#list${i.count+4}">
+								<strong>${i.count+4}</strong>
+								<em>${bean.faq_group}</em>
+								<span>${bean.question}</span>
+							</a>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+			<button type = "button" class = "move-board" onclick = "location.href = '${contextPath}/customerboard/FAQcenter.do'">더보기+</button>
 		</div>
-		<div>
-			<ul>
-				<li></li>
-			</ul>
+		<div class = "customer-box notice list">
+			<div class = "box-header">
+				<h4>공지사항</h4>
+			</div>
+			<div class = "box-body">
+				<ul id="centermainNotice" class = "notice">
+				
+				
+				</ul>
+			</div>
+			<button type = button class = "move-board" onclick = "location.href = '${contextPath}/customerboard/noticecenter.do'">더보기+</button>
+		
 		</div>
-		<button id = "more-faqboard" onclick = "location.href = '${contextPath}/customerboard/FAQcenter.do'">더보기+</button>
-	</div>
 	</div>
 </div>
 </body>

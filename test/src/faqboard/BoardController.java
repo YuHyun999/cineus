@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/customerboard/*")
 public class BoardController extends HttpServlet{
 	
+	NoticeBean noticeBean;
 	BoardBean boardBean;
 	BoardService boardService;
 	BoardDAO boardDAO;
@@ -23,6 +24,7 @@ public class BoardController extends HttpServlet{
 		boardService = new BoardService();
 		boardBean = new BoardBean();
 		boardDAO = new BoardDAO();
+		noticeBean = new NoticeBean();
 		
 	}
 	
@@ -51,11 +53,18 @@ public class BoardController extends HttpServlet{
 		
 		try {
 			List<BoardBean> boardList = new ArrayList<BoardBean>();
+			List<NoticeBean> noticeList = new ArrayList<NoticeBean>();
 			
 			
 			if(action == null){
+				int startRow = 0;
+				boardList = boardService.getFAQList(boardList, startRow);
+				request.setAttribute("boardList", boardList);
 				nextPage = "/customer/customcenter.jsp";
 			}else if(action.equals("/customcenter.do")) {
+				int startRow = 0;
+				boardList = boardService.getFAQList(boardList, startRow);
+				request.setAttribute("boardList", boardList);
 				nextPage = "/customer/customcenter.jsp";
 			}else if(action.equals("/FAQcenter.do")) {
 				String _pageNum = request.getParameter("pageNum");
@@ -83,6 +92,26 @@ public class BoardController extends HttpServlet{
 				request.setAttribute("pageCount", pageCount);
 				request.setAttribute("pageNum", pageNum);
 				nextPage = "/customer/FAQcenter.jsp";
+			}else if(action.equals("/noticecenter.do")) {
+				String _pageNum = request.getParameter("pageNum");
+				int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+				int count = boardService.getNoticeCount();
+				int pageSize = 10;
+				int pageBlock = 10;
+				int startPage = ((pageNum / pageBlock) - (pageNum % pageBlock == 0 ? 1:0) * pageBlock + 1);
+				int endPage = startPage + pageBlock -1;
+				int startRow = (pageNum - 1) * pageSize;
+				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+				if(endPage > pageCount) {
+					endPage = pageCount;
+				}
+				noticeList = boardService.getNoticeList(noticeList, startRow);
+				request.setAttribute("noticeList", noticeList);
+				request.setAttribute("pageCount", pageCount);
+				request.setAttribute("pageNum", pageNum);
+				request.setAttribute("startPage", startPage);
+				request.setAttribute("endPage", endPage);
+				nextPage = "/customer/noticecenter.jsp";
 			}
 			
 			if(action != null) {

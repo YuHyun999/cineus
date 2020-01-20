@@ -19,15 +19,15 @@ public class BoardDAO {
 	ResultSet rs;
 	String sql = "";
 	
-	// 커넥?�� ??로�??�� 커넥?��?�� ?��기위?�� 메소?��
+	// 커넥션 풀로부터 커넥션을 얻기위한 메소드
 	private Connection getConnection() throws Exception{
 		con = null;
 		Context init = new InitialContext();
-		DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/CineUs");
+		DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/cineus");
 		con = ds.getConnection();
 		
 		return con;
-	} // getConnection() 메소?�� ?��
+	} // getConnection() 메소드 끝
 	
 	 public void disconnect() throws SQLException {
 		    if(rs != null) {
@@ -35,6 +35,73 @@ public class BoardDAO {
 		    }
 		    if(pstmt != null) pstmt.close();
 		    if(con != null) con.close();
+	 }
+	 
+	 public int getNoticeCount() {
+
+			int count = 0;
+			
+			try {
+				con = getConnection();
+				sql = "select count(*) from notice_board";
+				
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+							
+				
+			} catch (Exception e) {
+				System.out.println("getBoardCount()메소드에서 발생한 예외" + e);
+			}finally {
+				try {
+					disconnect();
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+			}
+
+			return count;
+		}
+	 
+	 public List<NoticeBean> getNoticeList(List<NoticeBean> noticeList, int startRow) {
+		 
+ 
+		 
+		 try {
+				// 커넥션풀로 부터 커넥션 얻기(DB접속)
+				con = getConnection();
+				// SQL SELECT
+				sql = "select * from notice_board order by num desc limit ?, 10";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, startRow);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					NoticeBean bBean = new NoticeBean();
+					bBean.setNum(rs.getInt("num"));
+					bBean.setLocation(rs.getString("location"));
+					bBean.setSubject(rs.getString("subject"));
+					bBean.setContent(rs.getString("content"));
+					bBean.setWriteDate(rs.getDate("writeDate"));
+					
+					noticeList.add(bBean);
+				}
+				
+		 }catch(Exception e) {
+			 e.printStackTrace();
+		 }finally {
+			 try{
+		 disconnect();
+			 }catch(Exception e) {
+				 e.printStackTrace();
+			 }
+		 }
+		 
+		 return noticeList;
 	 }
 	 
 	 public int getCountsearchList(String searchVal, String selectVal) {
@@ -55,7 +122,7 @@ public class BoardDAO {
 							
 				
 			} catch (Exception e) {
-				System.out.println("getBoardCount()메소?��?��?�� 발생?�� ?��?��" + e);
+				System.out.println("getBoardCount()메소드에서 발생한 예외" + e);
 			}finally {
 				try {
 					disconnect();
@@ -66,7 +133,7 @@ public class BoardDAO {
 			}
 
 			return count;
-		}// getCountsearchList()메소?��?�� ?��
+		}// getCountsearchList()메소드의 끝
 	 
 	 
 	 
@@ -75,7 +142,7 @@ public class BoardDAO {
 		 
 		 
 		 try {
-				// 커넥?��??�? �??�� 커넥?�� ?���?(DB?��?��)
+				// 커넥션풀로 부터 커넥션 얻기(DB접속)
 				con = getConnection();
 				// SQL SELECT
 				sql = "select * from faq_board where question like ? AND faq_group like ? order by hit desc limit ?, 10";
@@ -125,7 +192,7 @@ public class BoardDAO {
 							
 				
 			} catch (Exception e) {
-				System.out.println("getBoardCount()메소?��?��?�� 발생?�� ?��?��" + e);
+				System.out.println("getBoardCount()메소드에서 발생한 예외" + e);
 			}finally {
 				try {
 					disconnect();
@@ -136,14 +203,14 @@ public class BoardDAO {
 			}
 
 			return count;
-		}// getBoardCount()메소?��?�� ?��
+		}// getBoardCount()메소드의 끝
 	 
 	 public List<BoardBean> getFQABoard(List<BoardBean> list, int startRow) {
 		 
 		 
 		 
 		 try {
-				// 커넥?��??�? �??�� 커넥?�� ?���?(DB?��?��)
+				// 커넥션풀로 부터 커넥션 얻기(DB접속)
 				con = getConnection();
 				// SQL SELECT
 				sql = "select * from faq_board order by hit desc limit ?, 10";

@@ -50,7 +50,17 @@
 		<hr class="center-home-line">
 	</div>
 </div>
-<div class = "container">
+<div class = "container width-fixed">
+	<div class = "customer-tab cu30">
+		<ul>
+			<li><a href = "${contextPath}/customerboard/FAQcenter.do" class = "ct5">자주묻는질문</a></li>
+			<li><a href = "${contextPath}/customerboard/noticecenter.do" class = "ct5">공지사항</a></li>
+			<li><a class = "ct5">1:1문의</a></li>
+			<li><a class = "ct5">단체관람/대관문의</a></li>
+			<li style = "border-right:1px solid #d9d9d9;"><a class = "ct5">분실물문의/접수</a></li>
+			<li class = "ct5" id = "phone-number">시네어스 고객센터<br><h4>Cineus center</h4><hr><h3>1234-5678</h3></li>
+		</ul>
+	</div>
 	<div class = "search-wrap">
 		<select id = "select">
 			<option value = "0" id = "0">검색조건선택</option>

@@ -100,12 +100,54 @@ ul, ol, dl, li, p {
 .container {
 	position:relative;
 		margin-top:38px;
-	margin-bottom:38px;
+	margin-bottom:85px;
+}
+
+.container.width-fixed {
 	margin-right:auto;
 	margin-left:auto;
+	padding:0px;
 	    width: 970px;
     max-width: 970px;
     min-width: 970px;
+}
+
+.cu30{
+	margin-bottom: 30px !important;
+}
+
+.customer-tab ul{
+	overflow: hidden;
+    height: 125px;
+}
+
+.customer-tab ul li {
+    float: left;
+    width: 160px;
+    height: 100%;
+    border:1px solid #d9d9d9;
+    border-right:none;
+}
+
+.customer-tab ul li a {
+	width: 160px;
+}
+
+#phone-number {
+	font-size:15px;
+	font-weight:700;
+	margin-left:10px;
+	float:left;
+	border:8px solid #d9d9d9;
+	padding:8px;
+}
+
+#phone-number hr {
+	margin:10px 0px;
+}
+
+#phone-number h3 {
+	margin:0px;
 }
 
 .center-title {
@@ -165,7 +207,7 @@ ul, ol, dl, li, p {
 #search{
 	position: absolute;
     overflow: visible;
-    top: 5px;
+    top: 160px;
     right: 18px;
     height: 17px;
     width: 19px;
@@ -276,7 +318,6 @@ ul, ol, dl, li, p {
 }
 #select {
 	position: absolute;
-	top: 1px;
 	right:250px;
 	height:26px;
 	margin-right:6px;
