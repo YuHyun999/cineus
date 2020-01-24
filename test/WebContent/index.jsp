@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style type="text/css">
 body{font-size: 0}
 </style>
@@ -16,13 +17,12 @@ body{font-size: 0}
 	<!-- 헤더가 들어가는 곳 -->
     <!-- </head>
 		 <body> -->
-    <h1>안녕?</h1>
     <div class="owl-carousel hero-slide owl-style">
       	<div class="hero-2">
-     		<a href="#"><img src="images/hero_1.jpg"/></a>
+     		<a href="#"><img src="images/carousel/Untitled-3.jpg"></a>
     	</div>
       	<div class="hero-2">
-     		<a href="#"><img src="images/hero_2.jpg"/></a>
+     		<a href="#"><img src="images/carousel/PainandGlory_Feature-1600x900-c-default.jpg"/></a>
     	</div>
     </div>
     
@@ -30,184 +30,80 @@ body{font-size: 0}
 
     <div class="site-section mt-5">
       <div class="container">
-
-        <div class="row mb-5">
-          <div class="col-12 section-title text-center mb-5">
-            <h2 class="d-block">Our Products</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, perspiciatis!</p>
-            <p><a href="#">View All Products <span class="icon-long-arrow-right"></span></a></p>
-          </div>
-        </div>
-        <div class="row">
-          
-          <div class="col-lg-4 mb-5 col-md-6">
-
-            <div class="wine_v_1 text-center pb-4">
-              <a href="shop-single.html" class="thumbnail d-block mb-4"><img src="images/wine_2.png" alt="Image" class="img-fluid"></a>
-              <div>
-                <h3 class="heading mb-1"><a href="#">Trius Cabernet France 2011</a></h3>
-                <span class="price">$629.00</span>
-              </div>
-              
-
-              <div class="wine-actions">
-                  
-                <h3 class="heading-2"><a href="#">Trius Cabernet France 2011</a></h3>
-                <span class="price d-block">$629.00</span>
-                
-                <div class="rating">
-                  <span class="icon-star"></span>
-                  <span class="icon-star"></span>
-                  <span class="icon-star"></span>
-                  <span class="icon-star"></span>
-                  <span class="icon-star-o"></span>
-                </div>
-                
-                <a href="#" class="btn add"><span class="icon-shopping-bag mr-3"></span> Add to Cart</a>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-lg-4 mb-5 col-md-6">
-            <div class="wine_v_1 text-center pb-4">
-              <a href="shop-single.html" class="thumbnail d-block mb-4"><img src="images/wine_3.png" alt="Image" class="img-fluid"></a>
-              <div>
-                <h3 class="heading mb-1"><a href="#">Trius Cabernet France 2011</a></h3>
-                <span class="price">$629.00</span>
-              </div>
-              
-
-              <div class="wine-actions">
-                  
-                <h3 class="heading-2"><a href="#">Trius Cabernet France 2011</a></h3>
-                <span class="price d-block"><del>$900.00</del> $629.00</span>
-                
-                <div class="rating">
-                  <span class="icon-star"></span>
-                  <span class="icon-star"></span>
-                  <span class="icon-star"></span>
-                  <span class="icon-star"></span>
-                  <span class="icon-star-o"></span>
-                </div>
-                
-                <a href="#" class="btn add"><span class="icon-shopping-bag mr-3"></span> Add to Cart</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 mb-5 col-md-6">
-            <div class="wine_v_1 text-center pb-4">
-              <a href="shop-single.html" class="thumbnail d-block mb-4"><img src="images/wine_1.png" alt="Image" class="img-fluid"></a>
-              <div>
-                <h3 class="heading mb-1"><a href="#">Trius Cabernet France 2011</a></h3>
-                <span class="price">$629.00</span>
-              </div>
-              
-
-              <div class="wine-actions">
-                  
-                <h3 class="heading-2"><a href="#">Trius Cabernet France 2011</a></h3>
-                <span class="price d-block"><del>$900.00</del> $629.00</span>
-                
-                <div class="rating">
-                  <span class="icon-star"></span>
-                  <span class="icon-star"></span>
-                  <span class="icon-star"></span>
-                  <span class="icon-star"></span>
-                  <span class="icon-star-o"></span>
-                </div>
-                
-                <a href="#" class="btn add"><span class="icon-shopping-bag mr-3"></span> Add to Cart</a>
-              </div>
-            </div>
-          </div>
-
-          
-
-        </div>
-      </div>
+		영화 목록 들어가는 자리
+       </div> <!-- container 끝 -->
     </div>
 
-    <div class="hero-2" style="background-image: url('images/hero_2.jpg');">
+    <div class="hero-2" style="background-image: url('images/carousel/theater-1477670_1920.jpg');">
      <div class="container">
         <div class="row justify-content-center text-center align-items-center">
           <div class="col-md-8">
-            <span class="sub-title">Welcome</span>
-            <h2>Wines For Everyone</h2>
+            <span class="sub-title">GRAND OPENING</span>
+            <h4><span class="sub-title">2020. 2</span></h4>
+            <h3><span class="sub-title">새롭게 시작하는 CINEUS를 만나보세요!</span></h3>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="site-section bg-light">
+    <!-- <div class="site-section bg-light">
       <div class="container">
-        <div class="owl-carousel owl-slide-3 owl-slide">
-        
-          <blockquote class="testimony">
-            <img src="images/person_1.jpg" alt="Image">
-            <p>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero sapiente beatae, nemo quasi quo neque consequatur rem porro reprehenderit, a dignissimos unde ut enim fugiat deleniti quae placeat in cumque?&rdquo;</p>
-            <p class="small text-primary">&mdash; Collin Miller</p>
-          </blockquote>
-          <blockquote class="testimony">
-            <img src="images/person_2.jpg" alt="Image">
-            <p>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero sapiente beatae, nemo quasi quo neque consequatur rem porro reprehenderit, a dignissimos unde ut enim fugiat deleniti quae placeat in cumque?&rdquo;</p>
-            <p class="small text-primary">&mdash; Harley Perkins</p>
-          </blockquote>
-          <blockquote class="testimony">
-            <img src="images/person_3.jpg" alt="Image">
-            <p>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero sapiente beatae, nemo quasi quo neque consequatur rem porro reprehenderit, a dignissimos unde ut enim fugiat deleniti quae placeat in cumque?&rdquo;</p>
-            <p class="small text-primary">&mdash; Levi Morris</p>
-          </blockquote>
-          <blockquote class="testimony">
-            <img src="images/person_1.jpg" alt="Image">
-            <p>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero sapiente beatae, nemo quasi quo neque consequatur rem porro reprehenderit, a dignissimos unde ut enim fugiat deleniti quae placeat in cumque?&rdquo;</p>
-            <p class="small text-primary">&mdash; Allie Smith</p>
-          </blockquote>
-        
-        </div>
+       
       </div>
-    </div>
+    </div> -->
   
 
     <div class="site-section bg-light">
       <div class="container">
-        <div class="row mb-5">
+        <!-- <div class="row mb-5">
           <div class="col-12 section-title text-center mb-5">
-            <h2 class="d-block">Wine's Blog</h2>
+            <h2 class="d-block"></h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, perspiciatis!</p>
             <p><a href="#">View All Products <span class="icon-long-arrow-right"></span></a></p>
           </div>
-        </div>
+        </div> -->
         <div class="row">
           <div class="col-lg-4 mb-4 mb-lg-0 col-md-6">
             <div class="post-entry-1">
-              <a href="post-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-              <h2><a href="blog-single.html">What You Need To Know About Premium Rosecco</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi temporibus praesentium neque, voluptatum quam quibusdam.</p>
-              <div class="post-meta">
-                <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-              </div>
+              <h2 style="color:black;">공지사항</h2>
+              <table class="table table-sm" style="font-size:16px;color:black;">
+              	<tr>
+              		<td>2020.1.22<br>[공지]씨네어스 공지사항</td>
+              	</tr>
+              	<tr>
+              		<td>2020.1.22<br>[공지]씨네어스 공지사항</td>
+              	</tr>
+              	<tr>
+              		<td>2020.1.22<br>[공지]씨네어스 공지사항</td>
+              	</tr>
+              	<tr>
+              		<td>2020.1.22<br>[공지]씨네어스 공지사항</td>
+              	</tr>
+              </table>
             </div>
           </div>
           <div class="col-lg-4 mb-4 mb-lg-0 col-md-6">
             <div class="post-entry-1">
-              <a href="post-single.html"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-              <h2><a href="blog-single.html">What You Need To Know About Premium Rosecco</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi temporibus praesentium neque, voluptatum quam quibusdam.</p>
-              <div class="post-meta">
-                <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-              </div>
+              <h2>메가찬스</h2>
             </div>
           </div>
           <div class="col-lg-4 mb-4 mb-lg-0 col-md-6">
             <div class="post-entry-1">
-              <a href="post-single.html"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-              <h2><a href="blog-single.html">What You Need To Know About Premium Rosecco</a></h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi temporibus praesentium neque, voluptatum quam quibusdam.</p>
-              <div class="post-meta">
-                <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-              </div>
+              <h2>고객센터</h2>
+              <table class="table table-sm table-bordered" style="height:300px;font-size:16px;color:black;">
+              	<tr>
+              		<td style="width:50%;height:50%;"><i class="material-icons" style="font-size:60px;">
+question_answer
+</i>1:1문의</td>
+              		<td style="width:50%;"><i class="material-icons" style="font-size:60px;"> 
+group
+</i>단체관람/대관문의</td>
+              	</tr>
+              	<tr>
+              		<td style="width:50%;height:50%;">자주 묻는 질문</td>
+              		<td>분실물 문의/접수</td>
+              	</tr>
+              </table>
             </div>
           </div>
         </div>

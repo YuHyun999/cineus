@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("UTF-8");%>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -23,7 +23,7 @@
 
 <div class="container" id="mar">
 	<div class="form-group">
-          <form action="${pageContext.request.contextPath}/members/MemberSignUp.me" method="post" id="SignUp">
+          <form action="${pageContext.request.contextPath}/members/MemberSignUp.me" method="post" onsubmit="return emailCheck();">
           
     		<label for="id" class="font-weight-bold text-dark">아이디</label>
             <div class="form-group">
@@ -70,11 +70,15 @@
             <label for="eaddress" class="font-weight-bold text-dark">이메일 주소</label>
 		    <div class="form-group">
 		      <div class="input-group">
-		        <input type="text" class="form-control" onblur="emailCheck();" placeholder="선택입력" id="useremail" name="useremail" style="margin-right: 0px;">
+		        <input type="text" class="form-control" onblur="emailCheck();" placeholder="선택입력" id="useremail" name="useremail" style="margin-right: 0px;" required>
+		        <input type="hidden" id="emailhidden" value="">
 		        <span class="input-group-btn">
                   <input type="button" class="btn btn-primary2" onclick="sendEmail();" value="계정인증">
                 </span>
                 <div id="emailCheck" class="text-danger" style="width:100%; display:none;">이메일 주소를 다시 확인해주세요.</div>
+                <div id="emailCheck2" class="text-success" style="width:100%; display: none;">인증이 완료되었습니다.</div>
+                <div id="emailCheck3" class="text-danger" style="width:100%; display:none;">이메일 계정 인증을 해주세요.</div>
+                <div id="emailCheck4" class="text-danger" style="width:100%; display:none;">필수 정보입니다.</div>
 		      </div>
 		    </div>
 		    
@@ -82,10 +86,11 @@
 		    <label for="tel" class="font-weight-bold text-dark">연락처</label>
             <div class="form-group">
               <div class="input-group">
-                <input type="tel" class="form-control" id="usertel" name="usertel" style="margin-right: 0px;" placeholder="- 없이 입력해 주세요">
-                <span class="input-group-btn">
-                  <button class="btn btn-primary2">인증번호 전송</button>
-                </span>
+                <input type="text" class="form-control" onblur="telcheck(); utelcheck();" id="usertel" name="usertel" style="margin-right: 0px;" placeholder="- 없이 입력해 주세요" required>
+                <div id="telCheck" class="text-danger" style="width:100%; display:none;">필수 정보입니다.</div>
+                <div id="telCheck2" class="text-danger" style="width:100%; display:none;">연락처는 11자리 숫자를 사용해주세요.</div>
+                <div id="telCheck3" class="text-danger" style="width:100%; display:none;">이미 사용중인 전화번호입니다.</div>
+                <div id="telCheck4" class="text-success" style="width:100%; display:none;">사용 가능한 전화번호입니다.</div>
               </div>
             </div>
             
@@ -115,9 +120,20 @@
               </div>
             </div>          
             
+            <div class="form-group">
+              <div class="input-group">
+                <input type="hidden" name="grade" value="일반">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="input-group">
+                <input type="hidden" name="delete" value="0">
+              </div>
+            </div>
             
             <div class="form-group text-center">
-              <button type="reset" class="btn btn-secondary">가입취소</button> 
+              <button type="button" class="btn btn-secondary" onclick="history.go(-1)">가입취소</button> 
               <button type="submit" class="btn btn-primary2">회원가입</button>
             </div>
           </form>

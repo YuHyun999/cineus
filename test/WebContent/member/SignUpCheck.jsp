@@ -49,8 +49,8 @@ function ucheck(){
 						$("#userid").val("");
 						
 					}else if(data == "usable"){ //사용가능
-						 $("#idCheck3").hide();
 						 $("#idCheck4").show(); 
+						 $("#idCheck3").hide();
 					
 					}			
 					
@@ -118,13 +118,34 @@ function nameCheck(){
 };
 
 
+
+
+
 //이메일의 유효성 확인
 function emailCheck(){
 	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-	if(getMail.test($("#useremail").val()) == false){
-		$("#emailCheck").show();	
-	}else{
+	if($("#useremail").val() == ""){
+		$("#emailCheck4").show();
 		$("#emailCheck").hide();
+		$("#emailCheck2").hide();
+		$("#emailCheck3").hide();
+	}else if(getMail.test($("#useremail").val()) == false){
+		$("#emailCheck").show();
+		$("#emailCheck2").hide();
+		$("#emailCheck3").hide();
+		$("#emailCheck4").hide();
+		$("#useremail").val("");
+	}else if($("#useremail").val() == $("#emailhidden").val()){
+		$("#emailCheck2").show();
+		$("#emailCheck").hide();
+		$("#emailCheck3").hide();
+		$("#emailCheck4").hide();
+	}else if($("#useremail").val() != $("#emailhidden").val()){
+		$("#emailCheck3").show();
+		$("#emailCheck").hide();
+		$("#emailCheck2").hide();
+		$("#emailCheck4").hide();
+		return false;
 	}
 };
 
@@ -133,7 +154,65 @@ function emailCheck(){
 function sendEmail() {
 		window.open("authMail.me?to=" + useremail.value, "인증페이지", "width=450, height=150");
 	}
+	
+
+//연락처 유효성 확인	
+function telcheck(){
+	var getCheck= RegExp(/^[0-9]{11}$/);
+	
+	if($("#usertel").val() == ""){
+		$("#telCheck").show();	
+		$("#telCheck2").hide();
+		$("#telCheck3").hide();
+		$("#telCheck4").hide();
+	}else if(getCheck.test($("#usertel").val()) == false){
+		$("#telCheck2").show();	
+		$("#telCheck").hide();
+		$("#telCheck3").hide();
+		$("#telCheck4").hide();
+		$("#usertel").val("");
+	}else{
+		$("#telCheck").hide();
+		$("#telCheck2").hide();
+		$("#telCheck3").hide();
+		$("#telCheck4").hide();
+	}	
+	return false;
+};
 
 
 
+//연락처 중복 체크
+function utelcheck(){
+	var _utel = $("#usertel").val();	
+
+	$.ajax(
+			{
+				type:"post", 
+				async:false, 
+				url:"${pageContext.request.contextPath}/members/membertelCheck.me", 
+				dataType:"text", 
+				data:{utel:_utel}, 
+				success:function(data,textStatus){ 
+					
+					if(data == "not_usable"){ //중복
+					
+						$("#telCheck3").show();
+						$("#telCheck4").hide();
+						$("#usertel").val("");
+						
+					}else if(data == "usable"){ //사용가능
+						 $("#telCheck4").show(); 
+						 $("#telCheck3").hide();
+					
+					}			
+					
+				},
+				error:function(data,textStatus){ //작업중 오류가 발생했을때 수행할 작업을 설정
+					alert("에러가 발생 했습니다.");
+				}
+			}
+		  );
+	
+}
 </script>
