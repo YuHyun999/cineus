@@ -45,6 +45,10 @@
 </head>
 <body>
 
+<!-- 헤더 들어가는곳 -->
+<jsp:include page="/inc/header.jsp"/>
+<!-- 헤더 들어가는곳 -->
+
 <div class="content-wrap">
 	<div class="center-home-div">
 		<ul class="center-home">
@@ -272,12 +276,12 @@
 		<script type="text/javascript">
 			
 			var pathname = $(location).attr('pathname');
-			if(pathname == "/test2/customerboard/locationnotice.do") {
+			if(pathname == "/test/customerboard/locationnotice.do") {
 				$('#locationNotice').addClass('active');
 				$('#allNotice').removeClass('active');
 				$('#cinemaNoticeList').addClass('active');
 				$('#allNoticeList').removeClass('active');
-			}else if(pathname == "/test2/customerboard/locationSearch.do") {
+			}else if(pathname == "/test/customerboard/locationSearch.do") {
 				$('#locationNotice').addClass('active');
 				$('#allNotice').removeClass('active');
 				$('#cinemaNoticeList').addClass('active');

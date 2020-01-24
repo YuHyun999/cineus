@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%request.setCharacterEncoding("UTF-8");%>
+
+<c:set var = "contextPath" value = "${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,7 +68,7 @@ body{font-size: 0}
         <div class="row">
           <div class="col-lg-4 mb-4 mb-lg-0 col-md-6">
             <div class="post-entry-1">
-              <h2 style="color:black;">공지사항</h2>
+              <h2 style="color:black;">공지사항</h2><a class = "more_content_btn" href = "${contextPath}/customerboard/noticecenter.do">더보기</a>
               <table class="table table-sm" style="font-size:16px;color:black;">
               	<tr>
               		<td>2020.1.22<br>[공지]씨네어스 공지사항</td>

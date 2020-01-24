@@ -1110,6 +1110,18 @@ h1, h2, h3, h4, h5,
 .date-read {
   color: #b4b4b4; }
 
+.post-entry-1 {
+	width:290px;
+}
+
+..post-entry-1 h2 {
+	width:240px;
+}
+
+.more_content_btn {
+	width:40px;
+}
+
 .post-entry-1, .post-entry-2 {
   font-size: 1rem;
   margin-bottom: 30px; }

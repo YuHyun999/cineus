@@ -40,6 +40,10 @@
 </head>
 <body>
 
+<!-- 헤더 들어가는곳 -->
+<jsp:include page="/inc/header.jsp"/>
+<!-- 헤더 들어가는곳 -->
+
 <div class="content-wrap">
 	<div class="center-home-div">
 		<ul class="center-home">
