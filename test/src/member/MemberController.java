@@ -68,6 +68,8 @@ public class MemberController extends HttpServlet {
 				String customer_address = request.getParameter("address");
 				String customer_detailAddress = request.getParameter("detailAddress");
 				String customer_extraAddress = request.getParameter("extraAddress");
+				String customer_grade = request.getParameter("grade");
+				String customer_delete = request.getParameter("delete");
 				
 				//입력한 새로운 회원정보를 MemberBean에 저장
 				memberBean.setCustomer_id(customer_id);
@@ -79,6 +81,8 @@ public class MemberController extends HttpServlet {
 				memberBean.setCustomer_address(customer_address);
 				memberBean.setCustomer_detailAddress(customer_detailAddress);
 				memberBean.setCustomer_extraAddress(customer_extraAddress);
+				memberBean.setCustomer_grade(customer_grade);
+				memberBean.setCustomer_delete(customer_delete);
 				
 				int check = memberService.servinsertMember(memberBean);
 				
@@ -93,8 +97,8 @@ public class MemberController extends HttpServlet {
 				String customer_id = (String)request.getParameter("uid");				
 				if(customer_id.length() >= 3){
 						
-						MemberDAO memberDAO = new MemberDAO();							
-						int check = memberDAO.idCheck(customer_id);
+													
+						int check = memberService.servidCheck(customer_id);
 						System.out.println(check);
 						
 						if(check == 1){ //중복
@@ -117,9 +121,9 @@ public class MemberController extends HttpServlet {
 				try {
 					if(check == 1){//입력한 아이디, 비밀번호 일치
 						session.setAttribute("id", id);
-						out.println("<script>" + " alert('로그인되었습니다.');" + " location.href='" + contextPath + "/index.jsp';" + "</script>");
-						out.flush();
-						nextPage = "/index.jsp";
+
+						response.sendRedirect(contextPath + "/main.jsp");
+						
 					}else{
 						out.println("<script>" + " alert('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');" + " location.href='" + contextPath + "/members/login.me';" + "</script>");
 						out.flush();
@@ -134,8 +138,7 @@ public class MemberController extends HttpServlet {
 				
 				try {
 					session.invalidate();
-					out.println("<script>" + " alert('로그아웃되었습니다.');" + " location.href='" + contextPath + "/index.jsp';" + "</script>");
-					out.flush();
+					response.sendRedirect(contextPath + "/main.jsp");
 					
 				} catch (Exception e) {
 					System.out.println("logout.me에서 에러 : " + e);
@@ -150,8 +153,61 @@ public class MemberController extends HttpServlet {
 				nextPage = "/member/authMail.jsp";
 				
 				
-			}
+			}else if(action.equals("/idFind.me")){ //아이디 찾기 버튼 클릭				
+				
+				String findName = request.getParameter("findName");
+			    String findTel = request.getParameter("findTel");
+			    String findEmail = request.getParameter("findEmail");
+
+			    String findId = memberService.servfindId(findName, findTel, findEmail);
+			    System.out.println(findId);
+			    out.print(findId);
+			    return;
+				
+				
+			}else if(action.equals("/pwFind.me")){ //비밀번호 찾기 버튼 클릭
+				
+				
+				String findpwName = request.getParameter("findpwName");
+			    String findpwId = request.getParameter("findpwId");
+			    String findpwEmail = request.getParameter("findpwEmail");
+			    
+			    String findPw = memberService.servfindPw(findpwName, findpwId, findpwEmail);
+			    
+			    if(findPw != null){
+			    	memberService.servsendpwEmail(findpwEmail, findPw);
+			    }		    
+			    
+			    System.out.println(findPw);
+			    out.print(findPw);
+			    return;
+			    
+				
+			}else if(action.equals("/membertelCheck.me")){	//연락처 중복체크
+
+				String customer_tel = (String)request.getParameter("utel");				
+						
+				if(customer_tel.length() == 11){									
+						int check = memberService.servtelCheck(customer_tel);
+						System.out.println(check);
+						
+						if(check == 1){ //중복
+							out.print("not_usable");
+						}else if(check == 0){//중복아님 사용가능
+							out.print("usable");									
+						}
+				}
+						return;
+						
+			}else if(action.equals("/fa_1.me")) { //마이페이지로 이동
+				
+				nextPage = "/intro/fa_1.jsp";
 			
+			}else if(action.equals("/EditMember.me")){ // 회원정보 수정 페이지로 이동
+				
+				nextPage = "/member/Edit.jsp";
+				
+			}
 			
 			
 			

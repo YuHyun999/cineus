@@ -95,6 +95,7 @@ public class MovieLikeDAO {
 			pstmt.setInt(1, movie_ID);
 			rs=pstmt.executeQuery();
 			if (rs.next()) {
+				System.out.println("getMoiveLikeTotal 결과는 : "+rs.getInt(1));
 				return rs.getInt(1);
 			}
 		} 

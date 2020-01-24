@@ -11,13 +11,16 @@ public class MemberBean {
 	private String customer_address;
 	private String customer_detailAddress;
 	private String customer_extraAddress;
+	private String customer_grade;
+	private String customer_delete;
 	
 	public MemberBean(){}
 	
 	public MemberBean(
 			String customer_id, String customer_pw, String customer_name,
 			String customer_email, String customer_tel, String customer_postcode,
-			String customer_address, String customer_detailAddress, String customer_extraAddress
+			String customer_address, String customer_detailAddress, String customer_extraAddress,
+			String customer_grade, String customer_delete
 					 )
 	{
 			this.customer_id = customer_id;
@@ -29,6 +32,8 @@ public class MemberBean {
 			this.customer_address = customer_address;
 			this.customer_detailAddress = customer_detailAddress;
 			this.customer_extraAddress = customer_extraAddress;
+			this.customer_grade = customer_grade;
+			this.customer_delete = customer_delete;
 	}
 	
 	
@@ -86,5 +91,16 @@ public class MemberBean {
 	public void setCustomer_extraAddress(String customer_extraAddress) {
 		this.customer_extraAddress = customer_extraAddress;
 	}
-	
+	public String getCustomer_grade() {
+		return customer_grade;
+	}
+	public void setCustomer_grade(String customer_grade) {
+		this.customer_grade = customer_grade;
+	}
+	public String getCustomer_delete() {
+		return customer_delete;
+	}
+	public void setCustomer_delete(String customer_delete) {
+		this.customer_delete = customer_delete;
+	}
 }

@@ -64,6 +64,8 @@ public class MovieDAO {
 						rs.getInt("movie_ID"),
 						rs.getString("title"),
 						rs.getString("title_en"),
+						rs.getString("plot"),
+						rs.getString("trailer"),
 						rs.getInt("product_year"),
 						rs.getInt("show_time"),
 						rs.getDate("start_date"),
@@ -84,12 +86,13 @@ public class MovieDAO {
 	
 	
 	//영화 목록을 반환하는 메서드
-	//이 프로젝트에서는 사용하지는 않는다.
+	//예약 가능한 목록만 반환한다.( = 상영 종료일이 지난 영화는 제외한다)
 	public List<MovieDTO> getMoviesListAll(){
 		List<MovieDTO> list=new ArrayList<>();
 		
-		sql = "select * from movie order by movie_ID desc"; //최근 것부터 읽는다. 
-		
+		//sql = "select * from movie order by movie_ID desc"; 
+		//최근 것부터 읽는다. 
+		sql="select * from movie where (end_date>=CURDATE() or end_date is null) order by movie_ID desc";
 		try{
 			getConnection();
 			pstmt = con.prepareStatement(sql);
@@ -101,6 +104,8 @@ public class MovieDAO {
 					rs.getInt("movie_ID"),
 					rs.getString("title"),
 					rs.getString("title_en"),
+					rs.getString("plot"),
+					rs.getString("trailer"),
 					rs.getInt("product_year"),
 					rs.getInt("show_time"),
 					rs.getDate("start_date"),
@@ -142,7 +147,12 @@ public class MovieDAO {
 		}
 		
 		if(option==1){
-			sql3="order by start_date desc, product_year desc ";
+			if (condition==1){
+				sql3="order by start_date desc, product_year desc ";
+			}
+			else{
+				sql3="order by start_date asc, product_year desc ";
+			}
 		}
 		else if(option==2){
 			sql3="order by title asc ";
@@ -176,6 +186,8 @@ public class MovieDAO {
 					rs.getInt("movie_ID"),
 					rs.getString("title"),
 					rs.getString("title_en"),
+					rs.getString("plot"),
+					rs.getString("trailer"),
 					rs.getInt("product_year"),
 					rs.getInt("show_time"),
 					rs.getDate("start_date"),

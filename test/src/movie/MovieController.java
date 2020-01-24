@@ -1,9 +1,15 @@
 package movie;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +17,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @WebServlet("/movie/*")
 public class MovieController extends HttpServlet {
@@ -56,10 +65,18 @@ public class MovieController extends HttpServlet {
 		case "getMoviesList.do":
 			getMoviesList();
 			break;
+		case "getMoviesListMore.do": //ajax
+			getMoviesListMore();
+			break;
 		case "getMovieInfo.do":
 			getMovieInfo();
+			break;
 		case "movieLikeToggle.do": //ajax
 			movieLikeToggle();
+			break;
+		case "getMoviePictures.do": //ajax
+			getMoviePictures();
+			break;
 		}//switch-case 끝
 	}//doHandle 끝
 
@@ -94,6 +111,35 @@ public class MovieController extends HttpServlet {
 		}
 	}//getMoviesList() 끝
 	
+	/****************************************************************************/
+
+	private void getMoviesListMore() { //ajax
+		
+		/*List<MovieDTO> list=movie_dao.getMoviesList(); */
+		int start=Integer.parseInt(request.getParameter("curr_list_len"));
+		int length=12; //12개 기본
+		int condition=1;
+		int option=1;
+		if(request.getParameter("h_condition")!=null){
+			condition=Integer.parseInt((String) request.getParameter("h_condition"));
+		}
+		if(request.getParameter("h_option")!=null){
+			option=Integer.parseInt((String) request.getParameter("h_option"));
+		}
+		
+		List<MovieDTO> list=movie_dao.getMoviesListLimit(start,length,condition,option);
+		try {
+			PrintWriter out = response.getWriter();
+			/*Gson gson = new Gson();*/
+			Gson gson =  new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			out.print(gson.toJson(list));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}//getMoviesListMore() 끝
+	
+	
+	
 	private void getMovieInfo(){
 		int movie_ID=Integer.parseInt(request.getParameter("movie_ID"));
 		String customer_ID=null;
@@ -123,10 +169,69 @@ public class MovieController extends HttpServlet {
 		}
 	}
 	
+	//전달받은 영화 ID에 해당하는  영화 사진들을 돌려준다.
+	private void getMoviePictures() { 	//ajax
+		//response.setContentType("image/jpeg");
+		response.setContentType("application/json;charset=utf-8");
+
+		String path=request.getParameter("path");
+        String pathToWeb = getServletContext().getRealPath(path);
+        File f = new File(pathToWeb);
+
+       // List<File> resultList = new ArrayList<File>(); //이미지 파일을 저장할 리스트 생성
+        List<String> resultList = new ArrayList<>();
+        //지정한 이미지폴더가 존재 할지 않을경우 빈 리스트 반환.
+       //System.out.println("파일존재 여부: "+file.exists());
+       if(!f.exists()){
+    	   return;
+       }
+       
+       File[] list = f.listFiles(new FileFilter() { //원하는 파일만 가져오기 위해 FileFilter정의
+           
+           String strImgExt = "jpg|jpeg|png|gif|bmp"; //허용할 이미지타입
+           
+           @Override
+           public boolean accept(File pathname) {                            
+               
+               //System.out.println(pathname);
+               boolean chkResult = false;
+               if(pathname.isFile()) {
+                   String ext = pathname.getName().substring(pathname.getName().lastIndexOf(".")+1);
+                   //System.out.println("확장자:"+ext);
+                   chkResult = strImgExt.contains(ext.toLowerCase());        
+                   //System.out.println(chkResult +" "+ext.toLowerCase());
+               } else {
+                   chkResult = true;
+               }
+               return chkResult;
+           }
+       });        
+       
+       for(File i : list) {            
+           if(i.isDirectory()) {
+               //폴더이면 이미지목록을 가져오는 현재메서드를 재귀호출
+               /*resultList.addAll(getImgFileList(i));   */  
+           }else {            
+               //폴더가 아니고 파일이면 리스트(resultList)에 추가
+               /*resultList.add(i);*/
+        	   resultList.add(i.getName());
+           }
+       }            
+       try {
+			PrintWriter out = response.getWriter();
+			Gson gson = new Gson();
+			out.print(gson.toJson(resultList));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+    }//getMoviePictures() 메서드 끝
+	
+	
+	
 	//해당 영화에 좋아요를 한 상태라면 movie_like를 없애고==]
 	//좋아요를 하지 않은 상태라면 movie_like를 생성한다.
 	private void movieLikeToggle(){ //ajax
-		System.out.println("토글 함수 안");
 		if(request.getParameter("m_id")==null){
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out;

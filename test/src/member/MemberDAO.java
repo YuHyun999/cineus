@@ -73,6 +73,46 @@ public class MemberDAO {
 	}//idCheck end
 	
 	
+	
+	
+	//연락처 중복 확인
+	public int telCheck(String customer_tel){
+			
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		int check = 2;
+			
+		try{
+			//커넥션풀로부터 커섹션 빌려오기(DB접속)
+			con = getConnection();
+			//SELECT SQL문 만들기 : 입력한 아이디에 해당하는 회원 검색
+			sql = "select * from customer where customer_tel = ?";
+			//PreparedStatement 객체 얻기
+			pstmt = con.prepareStatement(sql);
+			//?에 대응되는 값 설정
+			pstmt.setString(1, customer_tel);
+			//검색
+			rs = pstmt.executeQuery();
+				
+			if(rs.next()){//검색한 데이터가 있으면 연락처 중복
+				check = 1;
+			}else{//검색한 데이터가 존재하지 않으면 연락처 중복 아님
+				check = 0;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			//자원해제
+			if(pstmt != null){try{pstmt.close();} catch (SQLException e){e.printStackTrace();}}
+			if(con != null){try{con.close();} catch (SQLException e){e.printStackTrace();}}
+			if(rs != null){try{rs.close();} catch (SQLException e){e.printStackTrace();}}
+		}
+		return check; //중복 또는 중복 아닌 판별값 리턴
+	}//telCheck end
+	
+	
 	//회원가입 insert
 	public int insertMember(MemberBean memberBean){
 		int check = 0;
@@ -84,8 +124,8 @@ public class MemberDAO {
 			//커넥션풀로 커넥션 얻기(DB접속객체 Connection얻기)
 			con = getConnection();
 			//sql insert
-			sql= "insert into customer(customer_id,customer_pw,customer_name,customer_email,customer_tel,customer_postcode,customer_address,customer_detailAddress,customer_extraAddress)"+
-				  "values(?,?,?,?,?,?,?,?,?)";
+			sql= "insert into customer(customer_id,customer_pw,customer_name,customer_email,customer_tel,customer_postcode,customer_address,customer_detailAddress,customer_extraAddress,customer_grade,customer_delete)"+
+				  "values(?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			//?값 설정
 			pstmt.setString(1, memberBean.getCustomer_id());
@@ -97,6 +137,8 @@ public class MemberDAO {
 			pstmt.setString(7, memberBean.getCustomer_address());
 			pstmt.setString(8, memberBean.getCustomer_detailAddress());
 			pstmt.setString(9, memberBean.getCustomer_extraAddress());
+			pstmt.setString(10, memberBean.getCustomer_grade());
+			pstmt.setString(11, memberBean.getCustomer_delete());
 			
 			check = pstmt.executeUpdate();
 			
@@ -175,7 +217,7 @@ public class MemberDAO {
 	//인증용 이메일을 발송하는 sendEmail() 메서드
 	public int sendEmail(String to, String authNum){
 		String sender = "mealkit534@gmail.com";
-		String subject = "CINAUS 가입 인증 번호 발송 메일입니다.";
+		String subject = "CINEUS 가입 인증 번호 발송 메일입니다.";
 		String content = "반갑습니다 " + to + "님! <br> 고객님의 인증번호는 [" + authNum + "] 입니다!"; 
 		
 		Properties p = System.getProperties();
@@ -213,5 +255,122 @@ public class MemberDAO {
 	
 	}//sendEmail end
 	
+	
+	//아이디 찾기
+	public String findId(String customer_name, String customer_tel, String customer_email){
+		
+		String findId = null;	
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		
+		try{
+		con = getConnection();
+		sql = "select customer_ID from customer where customer_name=? and customer_tel=? and customer_email=?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, customer_name);
+		pstmt.setString(2, customer_tel);
+		pstmt.setString(3, customer_email);
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()){
+			findId = rs.getString(1);
+		}
+		
+		}catch(Exception e){
+		e.printStackTrace();
+		}finally{
+		//자원해제
+		if(pstmt != null){try{pstmt.close();} catch (SQLException e){e.printStackTrace();}}
+		if(con != null){try{con.close();} catch (SQLException e){e.printStackTrace();}}
+		if(rs != null){try{rs.close();} catch (SQLException e){e.printStackTrace();}}
+		
+		}
+
+		return findId;
+				
+		}//findId end
+	
+	
+	
+	//비밀번호 찾기
+	public String findPw(String customer_name, String customer_ID, String customer_email){
+		
+		String findPw = null;	
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		
+		try{
+		con = getConnection();
+		sql = "select customer_pw from customer where customer_name=? and customer_ID=? and customer_email=?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, customer_name);
+		pstmt.setString(2, customer_ID);
+		pstmt.setString(3, customer_email);
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()){
+			findPw = rs.getString("customer_pw");
+		}
+		
+		}catch(Exception e){
+		e.printStackTrace();
+		}finally{
+		//자원해제
+		if(pstmt != null){try{pstmt.close();} catch (SQLException e){e.printStackTrace();}}
+		if(con != null){try{con.close();} catch (SQLException e){e.printStackTrace();}}
+		if(rs != null){try{rs.close();} catch (SQLException e){e.printStackTrace();}}
+		
+		}
+		return findPw;
+				
+		}//findId end
+	
+	
+	//비밀번호 찾기 이메일
+	public int sendpwEmail(String to, String pathNum){
+		String sender = "mealkit534@gmail.com";
+		String subject = "CINEUS 비밀번호 찾기";
+		String content = "반갑습니다 " + to + "님! <br> 고객님의 비밀번호는 [" + pathNum + "] 입니다!"; 
+		
+		Properties p = System.getProperties();
+		
+		try {
+			p.put("mail.smtp.starttls.enable", "true");
+			p.put("mail.smtp.host", "smtp.gmail.com");
+			p.put("mail.smtp.auth", "true");
+			p.put("mail.smtp.port", "587");	//gmail 포트
+			Authenticator auth = new GoogleAuthentication(); 
+			Session session = Session.getDefaultInstance(p, auth);
+			
+			Message message = new MimeMessage(session);	//메일의 내용을 담을 객체
+			message.setSubject(subject);	//제목
+			
+			message.setHeader("content-type", "text/html;charset=UTF-8");
+			
+			Address senderAd = new InternetAddress(sender);
+			message.setFrom(senderAd);	//보내는 사람
+			
+			Address receiverAd = new InternetAddress(to);
+			message.addRecipient(Message.RecipientType.TO, receiverAd);	//받는 사람
+
+			message.setContent(content, "text/html;charset=UTF-8");	//내용과 인코딩
+			
+			message.setSentDate(new Date());
+			Transport.send(message);	//이메일 전송
+			
+			return 1;
+			
+		} catch (Exception e) {
+			System.out.println("sendpwEmail()메서드에서 오류" + e);
+			return 0;
+		}
+	
+	}//sendEmail end
 	
 }//MemberDAO end
