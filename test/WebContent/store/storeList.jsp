@@ -45,6 +45,9 @@
 	    <li class="nav-item">
 	      <a class="nav-link" href="javascript:void(0);" majorCode="3">씨네푸드</a>
 	    </li>
+	    <li>
+	    	<a href="${contextPath }/stores/viewCart.do">장바구니 보기(삭제예정)</a>
+	    </li>
 	  </ul>
 	</nav>
 	

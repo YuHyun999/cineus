@@ -1,7 +1,6 @@
 package schedule;
 
 import java.sql.Date;
-import java.sql.Time;
 
 /*schedule_ID	int(11)	NO	PRI		auto_increment
 schedule_date	date	NO			

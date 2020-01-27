@@ -8,6 +8,7 @@ public class StoreService {
 	
 	public StoreService() {
 		storeDAO = new StoreDAO();
+		cartDAO = new CartDAO();
 	}
 	
 	//티켓 목록 조회
@@ -52,5 +53,28 @@ public class StoreService {
 	public void modStore(StoreBean store){
 		storeDAO.updateStore(store);
 	}
+
+	//장바구니 담기
+	public void insertCart(CartBean cartBean) {
+		cartDAO.insertCart(cartBean);
+	}
+
+	//장바구니 중복 확인
+	public int listCart(String customer_id, int item_code) {
+		return cartDAO.listCart(customer_id, item_code);
+	}
+
+	//장바구니 목록 보기
+	public List<CartBean> viewCart(String customer_id) {
+		List<CartBean> cartList = cartDAO.viewCart(customer_id);
+		return cartList;
+	}
+
+	//장바구니 담긴 개수 확인
+	public int countCart(String customer_id) {
+		return cartDAO.countCart(customer_id);
+	}
+	
+	
 	
 }//StoreService

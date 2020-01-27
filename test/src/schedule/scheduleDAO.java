@@ -1,9 +1,11 @@
 package schedule;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -91,5 +93,116 @@ public class scheduleDAO {
 		
 		return list;
 	}
+	
+	//얘는 일단 안쓰고 ~J를 쓴다.
+	public List<scheduleDTO> getScheduleListByMovie(int movie_ID, LocalDate pdate){
+		List<scheduleDTO> list=new ArrayList<>();
+		Date date=java.sql.Date.valueOf(pdate);
+		//System.out.println("scheduleDAO서 받은 date 값 : "+date.toString());
+		// ㄴ 오늘 날짜로 똑바로 나온다. 그런데 왜 sql 문에서는 전날로 나올까???
+		// ㄴ 일단 보류함
+		System.out.println("LocalDate : "+pdate+"| Date : "+date);
+		sql="select * from schedule where movie_ID=? and schedule_date=?";
+		// ㄴ 정렬도 해야하는데 아직 schedule 데이터가 충분하지 않아서 일단 미룸
+		try{
+			getConnection();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, movie_ID);
+			pstmt.setDate(2, date);
+			System.out.println(pstmt.toString());
+			rs=pstmt.executeQuery();
+			while(rs.next()){
+				scheduleDTO dto=new scheduleDTO(
+						rs.getInt(1),
+						rs.getDate(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getInt(5),
+						rs.getInt(6),
+						rs.getInt(7)
+				);
+				
+				list.add(dto);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		finally{
+			close();
+		}
+		return list;
+	}//getScheduleListByMovie 끝
+
+	
+	public List<scheduleDTOJ> getScheduleListByMovieJ(int movie_ID, LocalDate pdate){
+		//아래 값들을 추가로 구해야 한다.
+		/*String theater_name; // 예 : 강남 메가박스
+		int group_num; //1~8
+		String location_name; //예 : 부산 충청 대전...
+		int show_time;
+		String end_at_accurate; // ####, 네자리 hhmm
+*/		
+		List<scheduleDTOJ> list=new ArrayList<>();
+		Date date=java.sql.Date.valueOf(pdate);
+		//System.out.println("scheduleDAO서 받은 date 값 : "+date.toString());
+		// ㄴ 오늘 날짜로 똑바로 나온다. 그런데 왜 sql 문에서는 전날로 나올까???
+		// ㄴ 일단 보류함
+		sql="select schedule.*, theater.name, movie.show_time, locations.group_num, "
+			+"locations.name from schedule "
+			+"left join theater on schedule.theater_ID=theater.theater_ID "
+			+"left join movie on schedule.movie_ID=movie.movie_ID "
+			+"left join locations on locations.code=theater.code "
+			+"where schedule.movie_ID=? and schedule.schedule_date=? "
+			+"order by locations.group_num asc, theater.name asc, schedule.screen_ID asc, "
+			+"schedule.start_at asc";
+		try{
+			getConnection();
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, movie_ID);
+			pstmt.setDate(2, date);
+			System.out.println(pstmt.toString());
+			rs=pstmt.executeQuery();
+			while(rs.next()){
+				scheduleDTOJ dtoj=new scheduleDTOJ(
+						rs.getInt(1),
+						rs.getDate(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getInt(5),
+						rs.getInt(6),
+						rs.getInt(7)
+				);
+				dtoj.setTheater_name(rs.getString(8));
+				dtoj.setShow_time(rs.getInt(9));
+				dtoj.setGroup_num(rs.getInt(10));
+				dtoj.setLocation_name(rs.getString(11));
+				
+				//end_at_accurate 는 계산해서 넣음
+				int show_time=dtoj.getShow_time();
+				int h=show_time/60+Integer.parseInt(dtoj.start_at.substring(0, 2));
+				int m=show_time%60+Integer.parseInt(dtoj.start_at.substring(3,5))+10; //10분 더해준다.
+					// ㄴ 왜냐면 영화는 시작시각에서 10분 지나서 상영 시작이기 때문.
+					// 그리고 참고로 start_at 은 hh:mm:ss 형식임.
+				if(m>=60) {h+=m/60; m=m%60;}
+				if(m>=10){
+					dtoj.setEnd_at_accurate(String.valueOf(h)+String.valueOf(m));
+				}
+				else{
+					dtoj.setEnd_at_accurate(String.valueOf(h)+"0"+String.valueOf(m));
+				}
+				
+				list.add(dtoj);
+			} /*while 끝*/
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		finally{
+			close();
+		}
+		return list;
+	}
+	
 	
 }

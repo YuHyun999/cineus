@@ -12,14 +12,14 @@
 <html>
 <head>
 <title>CINEUS</title>
-
+ 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-	<script src="${context}/js/moment.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="${context}/css/common.css">
 	<link rel="stylesheet" type="text/css" href="${context}/css/card.css">
 <style>
@@ -50,25 +50,14 @@ color:white;
 	color : #007bff;
 	font-weight:500;
 }
-/* 로딩 뱅글뱅글 */
-#loading {
- width: 100%;  
- height: 100%;  
- top: 0px;
- left: 0px;
- position: fixed;  
- display: block;  
- opacity: 0.7;  
- background-color: #fff;  
- z-index: 99;  
- text-align: center; } 
-  
-#loading-image {  
- position: absolute;  
- top: 50%;  
- left: 50%; 
- z-index: 100; }
- /* 로딩 뱅글뱅글 끝*/
+.btn_dday{
+	background-color:#1f0da8;
+	color:white;
+	padding : 5px 20px;
+	border-radius: 5px;
+	font-size:18px;
+	fonnt-weight:500;
+}
  
 </style>
 
@@ -112,8 +101,6 @@ color:white;
 	<form id="movieListForm" action="${context}/movie/getMoviesList.do" method="post">
 		<input type="hidden" name="h_condition" id="h_condition">
 		<input type="hidden" name="h_option" id="h_option">
-		<input type="hidden" name="h_cnt1" id="h_cnt1">
-		<input type="hidden" name="h_cnt2" id="h_cnt2">
 		
 	<!-- 영화 목록 보여주기 -->
 	<!-- details card section starts from here -->
@@ -126,7 +113,7 @@ color:white;
 					<%-- <div class="container">
 						<h6><strong>현재 ${list.size()}편의 영화가 상영중입니다.</strong></h6>
 					</div> --%>
-				    <div class="container">
+				    <div class="container" id="movies_wrapper">
 				        <!-- <div class="row"> -->
 				        <!-- 최신영화 순으로 보여준다. -->
 				        <c:forEach var="m" items="${list}" varStatus="loop"> 	
@@ -134,30 +121,32 @@ color:white;
 				        		<div class="row">
 				        	</c:if>
 					            <div class="col-md-3">
-					                <div class="card-content">
+					                <div class="card-content" id="${loop.index}">
 					                    <div class="card-img">
 					                        <img src="${context}/images/movie/${m.movie_ID}.jpg" alt="">
-					                        <span><h4>${loop.index+1}</h4></span>
+					                        <c:if test="${loop.index<10}"> <!-- 빨간네모. 10까지만 표시한다. -->
+					                        	<span><h4>${loop.index+1}</h4></span>
+					                        </c:if>
 					                    </div>
 					                    <div class="card-desc">
 					                        <div class="title">${m.title}</div>
-					                        <div class="date">${m.start_date}</div>&nbsp;&nbsp;
+					                        <div class="date">${m.start_date}</div>
 					                        
 					                        <script>
-					                        	var start_date=$(".card-desc .date").text();
+					                        	var $pos=$("#"+"${loop.index}"+" .date");
+					                        	var start_date=$pos.text();
 						                        var date = moment(start_date);
 						                        var now = moment();
-						                       /*  alert("date 와 now는 "+date+", "+now); */
 						                        if (now > date) {
 						                           // date is past
 						                        	$(".card-desc .date").text("");
 						                        } else {
 						                           // date is future
-						                           var duration = moment.duration(now.diff(date));
-													var days = duration.asDays();		
-						                           $(".card-desc .date").append("D-"+days);
+						                           var duration = moment.duration(date.diff(now));
+													var days = Math.floor(duration.asDays());		
+													$pos.append("&nbsp;&nbsp;&nbsp;&nbsp;<span class='btn_dday'>D-"+days+"</span>");
 						                        }
-					                        </script>
+					                        </script> 
 					                        
 					                        
 					                        <div class="container btn-container">
@@ -166,7 +155,7 @@ color:white;
 					                        			<a class="btn" href="${context}/movie/getMovieInfo.do?movie_ID=${m.movie_ID}">상세정보</a>
 					                        		</div>
 					                        		<div class="col col-md-6">
-					                            		<a class="btn" href="#">예매하기</a>
+					                            		<a class="btn" href="${context}/schedule/getSchedule_movie.do?movie_ID=${m.movie_ID}">예매하기</a>
 					                            	</div> 
 					                            </div>
 					                         </div>
@@ -204,28 +193,85 @@ $(".card-content .title").each(function(){
 	}
 });
 
-/* $(".card-content .date").each(function(){
-	if($(this).text().length>=limit){
-		$(this).text($(this).text().substr(0,limit)+"...");
-	}
-}); */
+
 </script>
 
-
-
-
 <script>
-	//더보기 버튼을 숨겨야 할 땐 숨긴다.
+function fn_hide_more_btn(){
+	//더보기 버튼 숨기기
 	if($(".card-content").length%12!=0){
 		$("#more_list_btn").hide();
 	};
-	
-	
+}
+
+fn_hide_more_btn();
+</script>
+
+<script>
 	/* 더보기 버튼을 눌렀을 때 */
 	$("#more_list_btn").on("click",function(){
 		/* alert("클릭!"); */
 		/* 12개(3줄)씩 더 보여준다 */
-		var curr_list_len="${list.size()}";
+		/* var curr_list_len="${list.size()}"; */
+		var curr_list_len=$(".card-content").length;
+		var h_condition=$("#h_condition").val();
+		var h_option=$("#h_option").val();
+		$.ajax({
+			url:'${context}/movie/getMoviesListMore.do',
+			type:'post',
+			data: {'curr_list_len' : curr_list_len, 'h_condition':h_condition, 'h_option':h_option},
+			dataType: "json",
+			error:function(jqXHR, textStatus, errorThrown){
+				alert(errorThrown);
+			},
+			success: function(data){
+	        	$el=$("#movies_wrapper"); //이미지들을 display할 영역
+	        	var str="";
+				for(var i=0; i<data.length ; i++){
+			 		var card_id=curr_list_len+i;
+			 		
+			 		str="<div class='col-md-3'>"
+			 			 	+"<div class='card-content' id='"+card_id+"'>"
+				            +"<div class='card-img'>"
+				            +"<img src='${context}/images/movie/"+data[i].movie_ID+".jpg'>"
+				            +"</div>"
+				            +"<div class='card-desc'>"
+				            +"<div class='title'>"+data[i].title+"</div>"
+				            +"<div class='date'>"+data[i].start_date+"</div>"
+				       		+"<div class='container btn-container'>"
+					       +"<div class='row'>"
+					       +"<div class='col col-md-6'>"
+					       +"<a class='btn' href='${context}/movie/getMovieInfo.do?movie_ID="+data[i].movie_ID+"'>상세정보</a>"
+				           +"</div>"
+				           +"<div class='col col-md-6'>"
+				           +"<a class='btn' href='${context}/schedule/getSchedule_movie.do?movie_ID="+data[i].movie_ID+"'>예매하기</a>"
+				        	+"</div>"
+				        	+"</div>"
+				            +"</div>"
+				            +"</div>"
+				            +"</div><!-- card-content 끝 -->"
+				            +"</div> <!-- col 끝 -->";
+				   $el.append(str);
+				   if(card_id%4==3 || i==data.length-1) $("#movies_wrapper > .col-md-3").wrapAll("<div class='row'></div>");
+				   
+				   var $pos=$("#"+card_id+" .date");
+	            	var start_date=$pos.text();
+	                var date = moment(start_date);
+	                var now = moment();
+	                if (now > date) {
+	                   // date is past
+	                	$pos.text("");
+	                } else {
+	                   // date is future
+	                   var duration = moment.duration(date.diff(now));
+						var days = Math.floor(duration.asDays());		
+						$pos.append("&nbsp;&nbsp;&nbsp;&nbsp;<span class='btn_dday'>D-"+days+"</span>");
+	                }
+	                
+			 	}//for 끝
+				fn_hide_more_btn();
+			}/* success 끝 */
+		}); /* ajax 끝 */
 	});
 </script>
 

@@ -2,20 +2,26 @@ package movie;
 
 import java.sql.Date;
 
-/*movie_ID	int(11)	NO	PRI		
+/*
+ * movie_ID	int(11)	NO	PRI		
 title	varchar(50)	NO			
-title_en	varchar(50)	YES			
+title_en	char(100)	YES			
+plot	text	YES			
+trailer	varchar(100)	YES			
 product_year	int(11)	YES			
-show_time	int(11)	NO	
+show_time	int(11)	NO			
 start_date	date	NO			
 end_date	date	YES			
-*
+ * 
+ * 
 */		
 
 public class MovieDTO {
 	int movie_ID;
 	String title;
 	String title_en;
+	String plot;
+	String trailer;
 	int product_year;
 	int show_time;
 	
@@ -23,10 +29,12 @@ public class MovieDTO {
 	Date end_date;
 	
 	
-	public MovieDTO(int movie_ID, String title, String title_en, int product_year, int show_time, Date start_date, Date end_date) {
+	public MovieDTO(int movie_ID, String title, String title_en, String plot, String trailer, int product_year, int show_time, Date start_date, Date end_date) {
 		this.movie_ID = movie_ID;
 		this.title = title;
 		this.title_en = title_en;
+		this.plot=plot;
+		this.trailer=trailer;
 		this.product_year = product_year;
 		this.show_time = show_time;
 		this.start_date=start_date;
@@ -34,6 +42,26 @@ public class MovieDTO {
 	}
 	
 	
+	public String getPlot() {
+		return plot;
+	}
+
+
+	public void setPlot(String plot) {
+		this.plot = plot;
+	}
+
+
+	public String getTrailer() {
+		return trailer;
+	}
+
+
+	public void setTrailer(String trailer) {
+		this.trailer = trailer;
+	}
+
+
 	public int getMovie_ID() {
 		return movie_ID;
 	}

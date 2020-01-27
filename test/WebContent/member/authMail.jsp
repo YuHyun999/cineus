@@ -46,13 +46,15 @@
 			var authNum = <%=authNum %>;
 			
 			if (!code) {
-				alert("인증번호를 입력하세요");
+				alert("인증번호를 입력하세요.");
 				return false;
 			}
 			
 			if (authNum == code) {
-				alert("인증이 완료되었습니다");
-				opener.join_email_chk.innerHTML = "인증이 완료되었습니다";
+				alert("인증이 완료되었습니다.");
+				opener.emailCheck2.outerHTML;
+				opener.emailhidden.value = opener.useremail.value;
+				opener.parent.emailCheck();
 				window.close();
 
 			}else {

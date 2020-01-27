@@ -10,6 +10,7 @@
 
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"/>
 <c:set var="storeBean" value="${requestScope.storeBean }" />
+<c:set var="id" value="${sessionScope.id}"/>
    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -27,6 +28,40 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 	<!-- 아이콘 폰트어썸 -->
 	<!------ Include the above in your HEAD tag ---------->
+	
+	<script type="text/javascript">
+		function log_confrim() {//로그인 유무 확인 후 장바구니 이동
+			if (${id eq null}) {
+				if (confirm("로그인이 필요한 서비스입니다. \n로그인페이지로 이동하시겠습니까?")) {
+					location.href="${contextPath }/members/login.me";
+				}
+			} else {
+				$("#storeForm").submit();
+			}
+		}
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			$(".btn_mins").click(function() {//물건 개수 빼기 버튼
+				$("#cart_qty").val($("#cart_qty").val() - 1);
+				if ($("#cart_qty").val() < 1) {//최소 수량 1
+					$("#cart_qty").val("1");
+				}
+				$(".total_price").text(${storeBean.sale_price} * $("#cart_qty").val());
+				$(".total_price").val(${storeBean.sale_price} * $("#cart_qty").val());
+			});
+			
+			$(".btn_plus").click(function() {//물건 개수 더하기 버튼
+				$("#cart_qty").val(parseInt($("#cart_qty").val()) + 1);
+				if ($("#cart_qty").val() > 5) {//최대 수량 5
+					$("#cart_qty").val("5");
+				}
+				$(".total_price").text(${storeBean.sale_price} * $("#cart_qty").val());
+				$(".total_price").val(${storeBean.sale_price} * $("#cart_qty").val());
+			});			
+		});
+	</script>
+	
     <!-- </head>
 		 <body> -->
 	<div class="container" id="mar">
@@ -44,66 +79,66 @@
 				
 		<div class="card">
 			<div class="row">
-				<aside class="col-sm-6 border-right">
-				<article class="gallery-wrap"> 
-				<div class="img-big-wrap">
-				 	<div> <a href="#"><img src="../images/store_images/${storeBean.item_image }"></a></div>
-				</div>
-				</article> <!-- gallery-wrap .end// -->
-				</aside>
-				
-				<aside class="col-sm-6">
-				<article class="card-body p-5">
-					<h3 class="title mb-3">${storeBean.item_name }</h3>
-					<h2>${storeBean.item_detail }</h2>
-				<dl class="item-property">
-				  <dt>사용가능 영화관</dt>
-				  <dd>${storeBean.place }</dd>
-				</dl>
-				<dl class="param param-feature">
-				  <dt>유효기간</dt>
-				  <dd>${storeBean.exp }</dd>
-				</dl>  <!-- item-property-hor .// -->
-				<dl class="param param-feature">
-				  <dt>판매수량</dt>
-				  <dd>1회 8개 구매가능</dd>
-				</dl>  <!-- item-property-hor .// -->
-				<dl class="param param-feature">
-				  <dt>구매 후 취소</dt>
-				  <dd>구매일로부터 7일까지 취소 가능하며, 부분취소는 불가능합니다.</dd>
-				</dl>  <!-- item-property-hor .// -->				
-				<hr>
-				<div class="row">
-					<div class="col-sm-5">
-						<dl class="param param-feature">
-						  <dt>스토어 판매가</dt>
-						  <dd>
-						  	${storeBean.sale_price }
-						  </dd>
-						  <dd>
-						  	${storeBean.price }
-						  </dd>
-						</dl> <!-- price-detail-wrap .// -->
-						<dl class="param param-feature">
-						  <dt>수량</dt>
-						  <div class="bx_num">
-						  	<button class="btn_mins">-</button>
-						  	<div class="txt_num">1</div>
-						  	<button class="btn_plus">+</button>
-						  </div>
-						</dl>  <!-- item-property .// -->
-					</div> <!-- col.// -->
-				</div> <!-- row.// -->
-				<hr>
-				
-				<dl class="param param-feature">
-					<dt>총 구매금액 :</dt>
-					<dd>99999999</dd>
-				</dl>					
-				<a href="${contextPath }/stores/insertCart.do" class="btn btn-lg btn-outline-primary text-uppercase"><i class="fas fa-shopping-cart"></i></a>
-				<a href="#" class="btn btn-lg btn-primary text-uppercase">구매하기</a>				
-			</article> <!-- card-body.// -->
-			</aside> <!-- col.// -->
+				<form action="${contextPath }/stores/insertCart.do?item_code=${storeBean.item_code}" method="post" id="storeForm">
+					<aside class="col-sm-6 border-right">
+					<article class="gallery-wrap"> 
+					<div class="img-big-wrap">
+					 	<div> <a href="#"><img src="../images/store_images/${storeBean.item_image }"></a></div>
+					 	<input type="hidden" name="item_image" value="${storeBean.item_image }">
+					</div>
+					</article> <!-- gallery-wrap .end// -->
+					</aside>
+					<aside class="col-sm-6">
+					<article class="card-body p-5">
+						<h3 class="title mb-3">${storeBean.item_name }</h3>
+						<input type="hidden" name="item_name" value="${storeBean.item_name }">
+						<h2>${storeBean.item_detail }</h2>
+					<dl class="item-property">
+					  <dt>사용가능 영화관</dt>
+					  <dd>${storeBean.place }</dd>
+					</dl>
+					<dl class="param param-feature">
+					  <dt>유효기간</dt>
+					  <dd>${storeBean.exp }</dd>
+					</dl>  <!-- item-property-hor .// -->
+					<dl class="param param-feature">
+					  <dt>판매수량</dt>
+					  <dd>1회 5개 구매가능</dd>
+					</dl>  <!-- item-property-hor .// -->
+					<dl class="param param-feature">
+					  <dt>구매 후 취소</dt>
+					  <dd>구매일로부터 7일까지 취소 가능하며, 부분취소는 불가능합니다.</dd>
+					</dl>  <!-- item-property-hor .// -->				
+					<hr>
+					<div class="row">
+						<div class="col-sm-5">
+							<dl class="param param-feature">
+							  <dt>스토어 판매가</dt>
+							  <dd>
+							  	${storeBean.sale_price }
+							  </dd>
+							  <input type="hidden" name="sale_price" value="${storeBean.sale_price }">
+							</dl> <!-- price-detail-wrap .// -->
+							<dl class="param param-feature">
+							  <dt>수량</dt>
+							  <div class="bx_num">
+							  	<button type="button" class="btn_mins">-</button>
+							  	<input type="text" id="cart_qty" name="cart_qty" value="1" readonly="readonly">
+							  	<button type="button" class="btn_plus">+</button>
+							  </div>
+							</dl>  <!-- item-property .// -->
+						</div> <!-- col.// -->
+					</div> <!-- row.// -->
+					<hr>
+					
+					<dl class="param param-feature">
+						<dt>총 구매금액 :</dt>
+						<dd class="total_price">${storeBean.sale_price }</dd>
+					</dl>	
+					<button type="button" class="btn btn-lg btn-outline-primary text-uppercase" onclick="log_confrim();">장바구니 담기</button>	
+				</article> <!-- card-body.// -->
+				</aside> <!-- col.// -->
+			</form>
 			</div> <!-- row.// -->
 		</div> <!-- card.// -->
 		

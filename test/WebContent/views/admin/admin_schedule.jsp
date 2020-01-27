@@ -57,27 +57,6 @@ form div.col-md-6{
 	padding-right:3px;
 	height:30px;
 }
-/* 로딩 뱅글뱅글 */
-#loading {
-	width: 100%;
-	height: 100%;
-	top: 0px;
-	left: 0px;
-	position: fixed;
-	display: block;
-	opacity: 0.7;
-	background-color: #fff;
-	z-index: 99;
-	text-align: center;
-}
-
-#loading-image {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	z-index: 100;
-}
-/* 로딩 뱅글뱅글 끝*/
 
 .th{
 	/* color:white;
@@ -229,13 +208,6 @@ form select, form option{
 </head>
 <body>
 
-	<!-- 로딩중 표시를 위한 소스 -->
-	<script type="text/javascript">
-$(window).on('load', function () {
-	$('#loading').hide(); 
-});
-</script>
-	<!-- 로딩중 표시를 위한 소스 -->
 
 	<div class="container-fluid">
 		<!-- 메뉴  -->
@@ -561,7 +533,7 @@ $(window).on('load', function () {
 			<br><br><br><br>
 			<div id="no-schedule">
 				<div>
-					<img src="${context}/img/exclamation.svg" style="width:40px;height:40px;">&nbsp;&nbsp;&nbsp;상영일정이 없습니다.
+					<img src="${context}/images/exclamation.svg" style="width:40px;height:40px;">&nbsp;&nbsp;&nbsp;상영일정이 없습니다.
 				</div>
 			</div>
 		</c:when>

@@ -11,10 +11,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/customerboard/*")
 public class BoardController extends HttpServlet{
 	
+	/**
+	 * 
+	 */
+	NoticeBean noticeBean;
 	BoardBean boardBean;
 	BoardService boardService;
 	BoardDAO boardDAO;
@@ -23,6 +28,7 @@ public class BoardController extends HttpServlet{
 		boardService = new BoardService();
 		boardBean = new BoardBean();
 		boardDAO = new BoardDAO();
+		noticeBean = new NoticeBean();
 		
 	}
 	
@@ -48,16 +54,28 @@ public class BoardController extends HttpServlet{
 		response.setContentType("text/html; charset=UTF-8");
 		String action = request.getPathInfo();
 		System.out.println("action:" + action);
+		HttpSession session = request.getSession();
 		
 		try {
 			List<BoardBean> boardList = new ArrayList<BoardBean>();
+			List<NoticeBean> noticeList = new ArrayList<NoticeBean>();
+			List<NoticeBean> locationList = new ArrayList<NoticeBean>();
 			
-			
-			if(action == null){
-				nextPage = "/customer/customcenter.jsp";
-			}else if(action.equals("/customcenter.do")) {
-				nextPage = "/customer/customcenter.jsp";
-			}else if(action.equals("/FAQcenter.do")) {
+			if(action == null){ // 고객센터 메인페이지 이
+				int startRow = 0;
+				boardList = boardService.getFAQList(boardList, startRow);
+				noticeList = boardService.getNoticeListTop5(noticeList);
+				request.setAttribute("boardList", boardList);
+				request.setAttribute("noticeList", noticeList);
+				nextPage = "/customboard/customcenter.jsp";
+			}else if(action.equals("/customcenter.do")) { // 고객센터 메인페이지 이동
+				int startRow = 0;
+				boardList = boardService.getFAQList(boardList, startRow);
+				noticeList = boardService.getNoticeListTop5(noticeList);
+				request.setAttribute("boardList", boardList);
+				request.setAttribute("noticeList", noticeList);
+				nextPage = "/customboard/customcenter.jsp";
+			}else if(action.equals("/FAQcenter.do")) { //FAQ게시판으로 이
 				String _pageNum = request.getParameter("pageNum");
 				int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
 				int count = boardService.getCount();
@@ -68,8 +86,8 @@ public class BoardController extends HttpServlet{
 				request.setAttribute("boardList", boardList);
 				request.setAttribute("pageCount", pageCount);
 				request.setAttribute("pageNum", pageNum);
-				nextPage = "/customer/FAQcenter.jsp";
-			}else if(action.equals("/searchList.do")) {
+				nextPage = "/customboard/FAQcenter.jsp";
+			}else if(action.equals("/searchList.do")) { // FAQ게시판 검색 이동
 				String searchVal = request.getParameter("searchVal"); // FAQcenter.jsp 페이지에서 검색한 값
 				String selectVal = request.getParameter("selectVal"); // FAQcenter.jsp 페이지에서 검색 카테고리 선택값
 				String _pageNum = request.getParameter("pageNum");
@@ -82,7 +100,155 @@ public class BoardController extends HttpServlet{
 				request.setAttribute("boardList", boardList);
 				request.setAttribute("pageCount", pageCount);
 				request.setAttribute("pageNum", pageNum);
-				nextPage = "/customer/FAQcenter.jsp";
+				nextPage = "/customboard/FAQcenter.jsp";
+			}else if(action.equals("/noticecenter.do")) { // 공지사항 게시판의 전체 영화관 공지게시판으로 이동하는 주소
+				String _pageNum = request.getParameter("pageNum");
+				int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+				int count = boardService.getNoticeCount();
+				int locationCount = boardService.getLocationCount();
+				int pageSize = 10;
+				int pageBlock = 10;
+				int startPage = ((pageNum / pageBlock) - (pageNum % pageBlock == 0 ? 1:0) * pageBlock + 1);
+				int endPage = startPage + pageBlock - 1;
+				int locationEndPage = startPage + pageBlock - 1;
+				int startRow = (pageNum - 1) * pageSize;
+				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+				if(endPage > pageCount) {
+					endPage = pageCount;
+				}
+				int locationPageCount = locationCount / pageSize + (locationCount % pageSize == 0 ? 0 : 1);
+				if(locationEndPage > locationPageCount) {
+					locationEndPage = locationPageCount;
+				}
+				noticeList = boardService.getNoticeList(noticeList, startRow);
+				locationList = boardService.getLocationList(locationList, startRow);
+				request.setAttribute("noticeList", noticeList);
+				request.setAttribute("pageCount", pageCount);
+				request.setAttribute("pageNum", pageNum);
+				request.setAttribute("startPage", startPage);
+				request.setAttribute("endPage", endPage);
+				request.setAttribute("loactionList", locationList);
+				request.setAttribute("locationPageCount", locationPageCount);
+				request.setAttribute("locationEndPage", locationEndPage);
+				nextPage = "/customboard/noticecenter.jsp";
+			}else if(action.equals("/locationnotice.do")) { // 공지사항 게시판의 영화관별 공지로 가는 주소
+				String _pageNum = request.getParameter("pageNum");
+				int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+				int count = boardService.getNoticeCount();
+				int locationCount = boardService.getLocationCount();
+				int pageSize = 10;
+				int pageBlock = 10;
+				int startPage = ((pageNum / pageBlock) - (pageNum % pageBlock == 0 ? 1:0) * pageBlock + 1);
+				int endPage = startPage + pageBlock - 1;
+				int locationEndPage = startPage + pageBlock - 1;
+				int startRow = (pageNum - 1) * pageSize;
+				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+				if(endPage > pageCount) {
+					endPage = pageCount;
+				}
+				int locationPageCount = locationCount / pageSize + (locationCount % pageSize == 0 ? 0 : 1);
+				if(locationEndPage > locationPageCount) {
+					locationEndPage = locationPageCount;
+				}
+				noticeList = boardService.getNoticeList(noticeList, startRow);
+				locationList = boardService.getLocationList(locationList, startRow);
+				request.setAttribute("noticeList", noticeList);
+				request.setAttribute("pageCount", pageCount);
+				request.setAttribute("pageNum", pageNum);
+				request.setAttribute("startPage", startPage);
+				request.setAttribute("endPage", endPage);
+				request.setAttribute("loactionList", locationList);
+				request.setAttribute("locationPageCount", locationPageCount);
+				request.setAttribute("locationEndPage", locationEndPage);
+				nextPage = "/customboard/noticecenter.jsp";
+			}else if(action.equals("/allNoticeSearch.do")) { // 공지사항 전체공지에 대한 검색이동
+				String searchVal = request.getParameter("searchVal"); // FAQcenter.jsp 페이지에서 검색한 값
+				String _pageNum = request.getParameter("pageNum");
+				int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+				int count = boardService.getAllSearchCount(searchVal);
+				int locationCount = boardService.getLocationCount();
+				int pageSize = 10;
+				int pageBlock = 10;
+				int startPage = ((pageNum / pageBlock) - (pageNum % pageBlock == 0 ? 1:0) * pageBlock + 1);
+				int endPage = startPage + pageBlock - 1;
+				int locationEndPage = startPage + pageBlock - 1;
+				int startRow = (pageNum - 1) * pageSize;
+				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+				if(endPage > pageCount) {
+					endPage = pageCount;
+				}
+				int locationPageCount = locationCount / pageSize + (locationCount % pageSize == 0 ? 0 : 1);
+				if(locationEndPage > locationPageCount) {
+					locationEndPage = locationPageCount;
+				}
+				noticeList = boardService.getAllSearchList(noticeList, startRow, searchVal);
+				request.setAttribute("noticeList", noticeList);
+				request.setAttribute("pageCount", pageCount);
+				request.setAttribute("pageNum", pageNum);
+				request.setAttribute("startPage", startPage);
+				request.setAttribute("endPage", endPage);
+				request.setAttribute("loactionList", locationList);
+				request.setAttribute("locationPageCount", locationPageCount);
+				request.setAttribute("locationEndPage", locationEndPage);
+				nextPage = "/customboard/noticecenter.jsp";
+				
+			}else if(action.equals("/locationSearch.do")) { // 공지사항 게시판 지역 및 영화관 검색 이동
+				String searchVal = request.getParameter("searchVal"); // FAQcenter.jsp 페이지에서 검색한 값
+				String selectVal = request.getParameter("selectVal"); // FAQcenter.jsp 페이지에서 검색 카테고리 선택값
+				String cinemaSelectVal = request.getParameter("cinemaSelectVal");
+				String _pageNum = request.getParameter("pageNum");
+				int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+				int count = boardService.getAllSearchCount(searchVal);
+				int locationCount = boardService.getLocationSearchCount(searchVal, selectVal, cinemaSelectVal);
+				int pageSize = 10;
+				int pageBlock = 10;
+				int startPage = ((pageNum / pageBlock) - (pageNum % pageBlock == 0 ? 1:0) * pageBlock + 1);
+				int endPage = startPage + pageBlock - 1;
+				int locationEndPage = startPage + pageBlock - 1;
+				int startRow = (pageNum - 1) * pageSize;
+				int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+				if(endPage > pageCount) {
+					endPage = pageCount;
+				}
+				int locationPageCount = locationCount / pageSize + (locationCount % pageSize == 0 ? 0 : 1);
+				if(locationEndPage > locationPageCount) {
+					locationEndPage = locationPageCount;
+				}
+				locationList = boardService.getLocationSearch(locationList, startRow, searchVal, selectVal, cinemaSelectVal);
+				request.setAttribute("noticeList", noticeList);
+				request.setAttribute("pageCount", pageCount);
+				request.setAttribute("pageNum", pageNum);
+				request.setAttribute("startPage", startPage);
+				request.setAttribute("endPage", endPage);
+				request.setAttribute("loactionList", locationList);
+				request.setAttribute("locationPageCount", locationPageCount);
+				request.setAttribute("locationEndPage", locationEndPage);
+				nextPage = "/customboard/noticecenter.jsp";
+			}else if(action.equals("/readNotice.do")) { // 공지사항게시판 상세보기
+				String _pageNum = request.getParameter("pageNum");
+				String _num = request.getParameter("num");
+				String location = request.getParameter("location");
+				int pageNum = Integer.parseInt(((_pageNum==null)? "1":_pageNum));
+				int num = Integer.parseInt(_num);
+				System.out.println("location : " + location);
+				NoticeBean noticeContent = new NoticeBean();
+				NoticeBean nextNoticeContent = new NoticeBean();
+				NoticeBean prevNoticeContent = new NoticeBean();
+				noticeContent = boardService.getNoticeContent(noticeContent, num);
+				nextNoticeContent = boardService.getNextNoticeContent(nextNoticeContent, num, location);
+				prevNoticeContent = boardService.getPrevNoticeContent(prevNoticeContent, num, location);
+				request.setAttribute("noticeContent", noticeContent);
+				request.setAttribute("nextNoticeContent", nextNoticeContent);
+				request.setAttribute("prevNoticeContent", prevNoticeContent);
+				request.setAttribute("pageNum", pageNum);
+				nextPage = "/customboard/readNotice.jsp";
+			}else if(action.contentEquals("/1on1center.do")) { // 1:1 문의 게시판
+				String id = (String)session.getAttribute("id");
+				if(id == null || id.equals("")) {
+					nextPage = "/member/login.jsp";
+				}else {
+					nextPage = "/customboard/1on1center.jsp";
+				}
 			}
 			
 			if(action != null) {

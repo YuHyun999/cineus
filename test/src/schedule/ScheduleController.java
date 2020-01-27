@@ -68,9 +68,61 @@ public class ScheduleController extends HttpServlet {
 		case "getSchedule_screen.do":
 			getSchedule_screen();
 			break;
+		case "getSchedule_movie.do":
+			getSchedule_movie();
+			break;
 		}
 	}/*doHandle 끝*/
 	
+	
+	
+	
+	private void getSchedule_movie() {
+		//전달받는 값 (영화 아이디, 선택한 날짜)처리
+		int m_id=-1;
+		LocalDate date=LocalDate.now(); //오늘 날짜로 지정
+		
+		if(request.getParameter("movie_ID")==null || request.getParameter("movie_ID")==""){
+		}else{
+			m_id=Integer.parseInt(request.getParameter("movie_ID"));
+		}
+		if(request.getParameter("date")==null){
+		}else{
+			//입력된 날짜 데이터는 "2016-08-16" 형식임.
+			date=LocalDate.parse(request.getParameter("date"));
+		}
+		
+		
+		
+		//예매가능한(상영중이거나 상영예정인) 영화목록
+		List<MovieDTO> m_list=movie_dao.getMoviesListAll();
+		request.setAttribute("m_list", m_list);
+		
+		if(m_id!=-1){ /*현재 선택된 영화가 있으면*/
+			/*스케쥴을 검색한다.*/
+			/*List<scheduleDTO> list=schedule_dao.getScheduleListByMovie(m_id, date);*/
+			List<scheduleDTOJ> list=schedule_dao.getScheduleListByMovieJ(m_id, date);
+			request.setAttribute("s_list", list);
+			request.setAttribute("movie_ID", m_id); //그대로 되돌려준다
+		}
+		else{
+			//할일 없다
+		}
+		request.setAttribute("date", date);//그대로 되돌려준다
+		
+		// view 포워드
+		next_page="/views/movie/movieSchedule.jsp";
+		RequestDispatcher rd = request.getRequestDispatcher(next_page);
+		try {
+			rd.forward(request, response);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 	public void getSchedule_screen(){
 		int s_idx=Integer.parseInt(request.getParameter("v_screen"));
 		int t_idx=Integer.parseInt(request.getParameter("v_theater")); 

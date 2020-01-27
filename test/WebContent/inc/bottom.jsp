@@ -11,7 +11,7 @@
 			<a href="" class="text-muted">제휴/광고 문의</a>&nbsp;|&nbsp;
 			<a href="" class="text-muted">이용약관</a>&nbsp;|&nbsp;
 			<a href="" class="text-muted">개인정보 처리방침</a>&nbsp;|&nbsp;
-			<a href="" class="text-muted">고객센터</a>&nbsp;|&nbsp;
+			<a href="${pageContext.request.contextPath}/customerboard/customcenter.do" class="text-muted">고객센터</a>&nbsp;|&nbsp;
 			<a href="" class="text-muted">윤리경영</a>
 		</div>
         <div class="row">
