@@ -31,19 +31,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
     	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<script src = "https://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  	<link rel="stylesheet" href="${contextPath}/customboard/style.css">
 
 	
-</head>
-<body>
+<!--  header.jsp에 이미 </head> 와 <body>가 있음 -->	
+<!-- </head> -->
+<!-- <body> -->
 
 <!-- 헤더 들어가는곳 -->
 <jsp:include page="/inc/header.jsp"/>
 <!-- 헤더 들어가는곳 -->
-
+<link rel="stylesheet" href="${contextPath}/customboard/style.css">
 <div class="content-wrap">
 	<div class="center-home-div">
 		<ul class="center-home">

@@ -35,15 +35,16 @@
 	<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  	<link rel="stylesheet" href="${contextPath}/customboard/style.css">
 
-	
-</head>
-<body>
+<!--  header.jsp에 이미 </head> 와 <body>가 있음 -->	
+<!-- </head> -->
+<!-- <body> -->
 
 <!-- 헤더 들어가는곳 -->
 <jsp:include page="/inc/header.jsp"/>
 <!-- 헤더 들어가는곳 -->
+  	<link rel="stylesheet" href="${contextPath}/customboard/style.css">
+
 
 <div class="content-wrap">
 	<div class="center-home-div">

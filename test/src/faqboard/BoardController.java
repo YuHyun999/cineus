@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/customerboard/*")
 public class BoardController extends HttpServlet{
@@ -53,13 +54,14 @@ public class BoardController extends HttpServlet{
 		response.setContentType("text/html; charset=UTF-8");
 		String action = request.getPathInfo();
 		System.out.println("action:" + action);
+		HttpSession session = request.getSession();
 		
 		try {
 			List<BoardBean> boardList = new ArrayList<BoardBean>();
 			List<NoticeBean> noticeList = new ArrayList<NoticeBean>();
 			List<NoticeBean> locationList = new ArrayList<NoticeBean>();
 			
-			if(action == null){
+			if(action == null){ // 고객센터 메인페이지 이
 				int startRow = 0;
 				boardList = boardService.getFAQList(boardList, startRow);
 				noticeList = boardService.getNoticeListTop5(noticeList);
@@ -240,6 +242,13 @@ public class BoardController extends HttpServlet{
 				request.setAttribute("prevNoticeContent", prevNoticeContent);
 				request.setAttribute("pageNum", pageNum);
 				nextPage = "/customboard/readNotice.jsp";
+			}else if(action.contentEquals("/1on1center.do")) { // 1:1 문의 게시판
+				String id = (String)session.getAttribute("id");
+				if(id == null || id.equals("")) {
+					nextPage = "/member/login.jsp";
+				}else {
+					nextPage = "/customboard/1on1center.jsp";
+				}
 			}
 			
 			if(action != null) {

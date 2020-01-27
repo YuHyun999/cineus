@@ -18,15 +18,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>고객센터</title>
 
- <link rel="stylesheet" href="${contextPath}/customboard/style.css">
-  
-</head>
-<body>
-
+<!--  header.jsp에 이미 </head> 와 <body>가 있음 -->	
+<!-- </head> -->
+<!-- <body> -->
 
 <!-- 헤더 들어가는곳 -->
 <jsp:include page="/inc/header.jsp"/>
 <!-- 헤더 들어가는곳 -->
+ <link rel="stylesheet" href="${contextPath}/customboard/style.css">
+  
 
 <div class="content-wrap">
 	<div class="center-home-div">

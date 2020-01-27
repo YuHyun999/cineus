@@ -3,6 +3,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%request.setCharacterEncoding("UTF-8");%>
 <c:set var="context" value="${pageContext.request.contextPath}" />
+
 <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700|Montserrat:400,700|Roboto&display=swap" rel="stylesheet"> 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/fonts/icomoon/style.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">

@@ -34,20 +34,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공지사항</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<script src = "https://code.jquery.com/jquery-latest.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-	
+	<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  	<link rel="stylesheet" href="${contextPath}/customboard/style.css">
-	
-</head>
-<body>
+ 	
+<!--  header.jsp에 이미 </head> 와 <body>가 있음 -->	
+<!-- </head> -->
+<!-- <body> -->
 
 <!-- 헤더 들어가는곳 -->
 <jsp:include page="/inc/header.jsp"/>
 <!-- 헤더 들어가는곳 -->
+<link rel="stylesheet" href="${contextPath}/customboard/style.css">
+ 
 
 <div class="content-wrap">
 	<div class="center-home-div">
@@ -64,7 +65,7 @@
 		<ul>
 			<li><a href = "${contextPath}/customerboard/FAQcenter.do" class = "ct5">자주묻는질문</a></li>
 			<li><a href = "${contextPath}/customerboard/noticecenter.do" class = "ct5">공지사항</a></li>
-			<li><a class = "ct5">1:1문의</a></li>
+			<li><a href = "${contextPath}/customerboard/1on1center.do" class = "ct5">1:1문의</a></li>
 			<li><a class = "ct5">단체관람/대관문의</a></li>
 			<li style = "border-right:1px solid #d9d9d9;"><a class = "ct5">분실물문의/접수</a></li>
 			<li class = "ct5" id = "phone-number">시네어스 고객센터<br><h4>Cineus center</h4><hr><h3>1234-5678</h3></li>
@@ -89,16 +90,17 @@
 		<div class = "header">
 			<span class = "hd1">NO</span>
 			<span class = "hd2">지역/영화관</span>
-			<span class = "hd3">질문</span>
+			<span class = "hd3" style = "width:580px;">질문</span>
 			<span class = "hd4">작성일</span>
 		</div>
 
 			<c:forEach   var="bean" items = "${noticeList}" varStatus = "i">
 				<div class = "panel">
 				<a class = "showdown title other"  href = "${contextPath }/customerboard/readNotice.do?num=${bean.num}&pageNum=${pageNum}&searchVal=${param.searchVal}&location=${bean.location}">
-					<span class = "hd1">${bean.num}</span>
+					<span class = "hd1" style = "visibility:visible">${bean.num}</span>
 					<span class = "hd2">${bean.location}</span>
-					<span class = "hd3">${bean.subject}</span>
+					<span class = "hd3" style = "width:580px;">${bean.subject}</span>
+					<span class = "hd4">${bean.writeDate}</span>
 				</a>
 				</div>
 			</c:forEach>
@@ -145,16 +147,17 @@
 		<div class = "header">
 			<span class = "hd1">NO</span>
 			<span class = "hd2">지역/영화관</span>
-			<span class = "hd3">질문</span>
+			<span class = "hd3" style = "width:580px;">질문</span>
 			<span class = "hd4">작성일</span>
 		</div>
 
 			<c:forEach   var="bean" items = "${locationList}" varStatus = "i">
 				<div class = "panel">
 				<a class = "showdown title other"  href = "${contextPath }/customerboard/readNotice.do?num=${bean.num}&pageNum=${pageNum}&location=${bean.location}&searchVal=${param.searchVal}&selectVal=${param.selectVal}&cinemaSelectVal=${param.cinemaSelectVal}">
-					<span class = "hd1">${bean.num}</span>
+					<span class = "hd1" style = "visibility:visible">${bean.num}</span>
 					<span class = "hd2">${bean.location}</span>
-					<span class = "hd3">${bean.subject}</span>
+					<span class = "hd3" style = "width:580px;">${bean.subject}</span>
+					<span class = "hd4">${bean.writeDate }</span>
 				</a>
 				</div>
 			</c:forEach>

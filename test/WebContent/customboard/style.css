@@ -602,6 +602,12 @@ h2>.sub-title{
     text-align: center;
 }
 
+.hd4 {
+	width:160px;
+	text-align:right;
+	padding-right:30px;
+}
+
 .FAQlist .panel {
 	margin: 0 !important;
     -webkit-border-radius: 0;
@@ -654,9 +660,6 @@ h2>.sub-title{
 	visibility:hidden
 }
 
-.collapse {
-  display: none;
-}
 
 .collapse.in {
   display: block;
@@ -694,7 +697,7 @@ h2>.sub-title{
 .custom-pagination li a {
 	display: block;
     border: 1px solid #ccc;
-    padding: 0 8px;
+    padding: 0 8px !important;
     height: 25px;
     line-height: 25px;
     font-size: 12px;

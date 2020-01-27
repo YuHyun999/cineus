@@ -210,14 +210,6 @@ public class MemberController extends HttpServlet {
 			}
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
 			if(action != null){				
 				RequestDispatcher dispatch = request.getRequestDispatcher(nextPage);
 				dispatch.forward(request, response);
