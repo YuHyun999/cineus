@@ -150,6 +150,23 @@ padding-bottom: 10px;
 padding:0 0;
 }
 
+/* 페이지 상단 큰 이미지 */
+.div_large_image {
+    position: relative;
+    height: 585px;
+    padding: 0;
+    background-image: url("${context}/images/large_images/theatre-603076_1920.jpg") ;
+    background-repeat: no-repeat;
+    /* background: url(http://image2.megabox.co.kr/mop/home/theater/bg.jpg) 50% 0 no-repeat; */
+    background-size: cover;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://image2.megabox.co.kr/mop/home/theater/bg.jpg', sizingMethod='scale');
+    -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://image2.megabox.co.kr/mop/home/theater/bg.jpg', sizingMethod='scale');
+}
+#container-fluid{
+	max-width:1100px;
+	padding-left: 0;
+	padding-right: 0;
+}
 </style>
 
 
@@ -163,7 +180,8 @@ padding:0 0;
 	<!-- 헤더가 들어가는 곳 -->
     <!-- </head>
 		 <body> -->
-<br><br><br>
+
+
 
 <!--  jquery-->
 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
@@ -178,16 +196,23 @@ function initialize() {
 <!-- 구글맵 사용을 위한 코드 -->
 
 
- <div class="container-fluid">
- 	<!-- 메뉴  -->
-	<!--< jsp:include page="/views/common/menu.jsp" />-->
-	<!-- 메뉴 끝 -->
-
+	<div class="section div_large_image">
+		<div class="content_wrap">
+               <div class="special_top_text">
+                   <h2 class="blind"><strong>MEGABOX</strong> <span>LIFE THEATER</span></h2>
+                   <p class="blind2">창의적인 콘텐트로 다양한 라이프 스타일을 만족시키는 당신의  인생 극장.</p>
+               </div>
+           </div>
+	</div> <!-- //section -->
+	
+	
+	
+<div class="container-fluid" id="container-fluid">
 	<div id="page-title"><h3>영화관 선택</h3></div>
 	<!-- <p>Click on the buttons inside the tabbed menu:</p> -->
 	
 	
-	<div class="all col-12 container "> <!-- 네모 영역 전체를 감싸는 div -->
+	<div class="all col-12 container pl-0 pr-0"> <!-- 네모 영역 전체를 감싸는 div -->
 	
 		<!-- ---------------지역 선택------------------------- -->
 		<div class="tab depth1 col-2 col-md-2">

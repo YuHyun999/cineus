@@ -61,10 +61,11 @@ margin-right: 10px;
 }
 #btn_reserve{
 }
-.info .col-md-3{
-padding-right:5px;
-padding-left:5px;}
-
+#container-fluid{
+	max-width:1100px;
+	padding-left: 0;
+	padding-right: 0;
+}
 	</style>
   
 	<!-- 헤더가 들어가는 곳 -->
@@ -72,22 +73,25 @@ padding-left:5px;}
 	<!-- 헤더가 들어가는 곳 -->
     <!-- </head>
 		 <body> -->
-
+	<script>
+		$("#menu2 *").css("color","#111").css("borderColor","#111");
+		$("#menu2 .btn_menu_all").css("backgroundColor","#fff").css("borderColor","#111");
+	</script>
 
  <br><br><br>
  
- <div class="container-fluid">
+ <div class="container-fluid" id="container-fluid">
 	<div class="container info">
 		<div class="row">
 	<!-- 영화 상세정보 보여주기 -->
-			<div class="col col-md-4">
+			<div class="col col-md-4" style="padding-left:0">
 				<%-- <img src="${context}/images/movie/${m.movie_ID}.jpg" id="img_info" alt=""  data-toggle="lightbox">
 				<span>포스터 크게보기</span>  보류--%>
 				<%-- <a href="#" onclick="image_popup(${m.movie_ID})"> --%>
    				 	<img src="${context}/images/movie/${m.movie_ID}.jpg" class="img-fluid">
 				<!-- </a> -->
 			</div>
-			<div class="col col-md-8">
+			<div class="col col-md-8" style="padding-right:0">
 				<h3>${m.title}</h3>
 				${m.title_en}
 				<hr>
@@ -105,7 +109,7 @@ padding-left:5px;}
 					</div> 
 				</div>
 				<hr style="margin-top:200px">
-				<div class="row">
+				<div class="row" >
 					<div class="col col-md-6">
 					</div>
 					<div class="col col-md-3">

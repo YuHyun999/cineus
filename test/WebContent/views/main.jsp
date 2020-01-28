@@ -58,7 +58,11 @@ color:white;
 	font-size:18px;
 	fonnt-weight:500;
 }
- 
+#container-fluid{
+	max-width:1100px;
+	padding-right: 0;
+	padding-left: 0;
+}
 </style>
 
 	<!-- 헤더가 들어가는 곳 -->
@@ -67,10 +71,15 @@ color:white;
     <!-- </head>
 		 <body> -->
 
+	<script>
+		$("#menu2 *").css("color","#111").css("borderColor","#111");
+		$("#menu2 .btn_menu_all").css("backgroundColor","#fff").css("borderColor","#111");
+	</script>
+	
 <br><br><br>
  
  
- <div class="container-fluid">
+ <div class="container-fluid" id="container-fluid">
 	
 	
 		<!-- 서브메뉴바// -->

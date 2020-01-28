@@ -135,7 +135,9 @@ border:1px lightgray solid;
   to {opacity: 1;margin-top: 0%;}
 }
 
-
+#container-fluid{
+	max-width:1100px;
+}
 
 	</style>
   
@@ -144,6 +146,11 @@ border:1px lightgray solid;
 	<!-- 헤더가 들어가는 곳 -->
     <!-- </head>
 		 <body> -->
+
+	<script>
+		$("#menu2 *").css("color","#111").css("borderColor","#111");
+		$("#menu2 .btn_menu_all").css("backgroundColor","#fff").css("borderColor","#111");
+	</script>
 
 <script>
 	/* 영화 시작시각과 종료시각 받아온게 형식이 조금 다르기 때문에 맞춰주기 */
@@ -167,7 +174,7 @@ border:1px lightgray solid;
         
  <br><br><br>
  
- <div class="container-fluid">
+ <div class="container-fluid pl-0 pr-0" id="container-fluid">
  		<div id="page-title">
  		 	<h3><img src="${context}/images/schedule-24px.svg" style="width:40px;height:40px;margin-bottom:10px">&nbsp;&nbsp;영화별 상영시간표</h3>
  		 </div>
