@@ -13,6 +13,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
 <link rel="stylesheet" href="${context}/css/demo.css">
 <link rel="stylesheet" href="${context}/css/navigation-icons.css">
 <link rel="stylesheet" href="${context}/css/slicknav/slicknav.min.css">
@@ -52,7 +53,7 @@
 			<div>
 			 <h3 class="blind">2019년 VIP 회원안내</h3>
 			 <p class="help large mb0">VIP회원 혜택은 매 선정 시 마다 달리 질 수 있습니다</p>
-		 		<button type="button" class="icon my_class" id="btn_my_class">
+		 		<button type="button" class="icon my_class" id="btn_my_class" onclick="">
 		 			나의 회원등급 확인하기
 		 		</button>
 		 	</div>

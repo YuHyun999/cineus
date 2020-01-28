@@ -80,6 +80,8 @@ th {
 	position:absolute;
 	right:23px;
 	top:25px;
+	font-size:12px;
+	background-color:#f8f9fa;
 }
 
 .center-home {
@@ -804,4 +806,18 @@ h2>.sub-title{
     margin-left: 135px;
     text-decoration: none;
     color: #333;
+}
+
+.icon_list {
+    font-size: 12px;
+}
+
+.pl25 {
+	padding-left: 25px !important;
+}
+
+.customer_h4 {
+    font-size: 14px;
+    color: #333;
+    margin: 34px 0 9px 25px;
 }

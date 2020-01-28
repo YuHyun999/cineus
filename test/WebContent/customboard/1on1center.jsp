@@ -20,6 +20,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src = "https://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript" src="/js/bootstrap-datepicker.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+
 <!--  header.jsp에 이미 </head> 와 <body>가 있음 -->	
 <!-- </head> -->
 <!-- <body> -->
@@ -51,8 +59,29 @@
 			<li class = "ct5" id = "phone-number">시네어스 고객센터<br><h4>Cineus center</h4><hr><h3>1234-5678</h3></li>
 		</ul>
 	</div>
-	
-	
+	<div class = "center1on1_container">
+		<ul class = "icon_list pl25">
+			<li>>문의하시기 전 FAQ를 확인하시면 궁금증을 더욱 빠르게 해결하실 수 있습니다.</li>
+			<li>>1:1 문의글 답변 운영시간 09:00 ~ 21:00</li>
+			
+		</ul>
+		<h4 class = "customer_h4">개인정보 수집에 대한 동의</h4>
+		<div class = "customer_term_wrap">
+			<div class = "customer_term_text">
+				귀하께서 문의하신 다음의 내역은 법률에 의거 개인정보 수집.이용에 대한 본인동의가 필요한 항목입니다.<br><br>
+				개인정보의 수집 및 이용목적<br>
+				회사는 1:1 문의내역의 확인, 요청사항 처리 또는 완료 시 원활한 의사소통 경로 확보를 위해 수집하고 있습니다.<br><br>
+				
+				수집하는 개인정보의 항목<br>
+				이름, 연락처, 이메일 주소<br>
+				<br>
+				개인정보의 보유기간 및 이용기간<br>
+				문의 접수 ~ 처리 완료 후 6개월<br>
+				(단, 관계법령의 규정에 의하여 보존 할 필요성이 있는 경우에는 관계 법령에 따라 보존)<br>
+				자세한 내용은 '개인정보 처리방침'을 확인하시기 바랍니다.	<br>
+			</div>
+		</div>
+	</div><!-- center1on1_container(1대1문의 전체 div박스)의 끝 -->
 </div> <!-- container width-fixed 의 끝 -->
 
 </body>

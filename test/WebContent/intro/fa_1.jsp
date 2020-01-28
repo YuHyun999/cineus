@@ -2,6 +2,7 @@
     pageEncoding="EUC-KR"%>
     
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<c:set var="mbean" value="${requestScope.mbean}" />
 <c:set var="context" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -45,28 +46,28 @@
 				<div class="subcont null">
 					<div class="subtitle">
 						<div id="printBody">
-							<p>${c_dto.customer_name}</p>님의 회원정보입니다.
-								<table class="tb02" summary="이메일, 연락처, 휴대폰, 주소에 관한 정보를 제공하는 표">
+							<p>${mbean.customer_name}</p>님의 회원정보입니다.
+								<table class="tb02" summary="아이디, 이름, 이메일, 연락처, 주소, 회원정보에 관한 정보를 제공하는 표">
 									<tbody>
 											<tr>
 												<th scope="row">아이디</th>
-												<td><p>${c_dto.customer_id}</p></td>
+												<td><p>${mbean.customer_id}</p></td>
 											</tr>
 											<tr>
 												<th scope="row">이름</th>
-												<td><p>${c_dto.customer_name}</p></td>
+												<td><p>${mbean.customer_name}</p></td>
 											</tr>
 											<tr>
 												<th scope="row">이메일</th>
-												<td><p>${c_dto.customer_email}</p></td>
+												<td><p>${mbean.customer_email}</p></td>
 											</tr>
 											<tr>
 												<th scope="row">연락처</th>
-												<td><p>${c_dto.customer_tel}</p></td>
+												<td><p>${mbean.customer_tel}</p></td>
 											</tr>
 											<tr>
 												<th scope="row">주소</th>
-												<td><p>${c_dto.customer_address}</p></td>
+												<td><p>${mbean.customer_address}</p></td>
 											</tr>
 											<tr>
 												<th scope="row">회원등급</th>
@@ -81,7 +82,7 @@
 				</div>
 			</div>
 			<br><br>
-			<button><a href="${pageContext.request.contextPath}/members/EditMember.me" class="text-dark">회원 정보 수정</a></button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button>회원 정보 수정</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<button>회원 정보 삭제</button>	
 			<br><br><br><br>
 		
