@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+#tab1 {
+	margin: 0px 80px;
+	padding: 40px 30px;
+	border: 1px solid #1f0da8;
+	float: left;
+	background-color: white;
+	color: #1f0da8;
+	border :solid red;
+}
+
+#tab1 > a {
+	font-size: 20px;
+	text-decoration: none;
+	border :solid red;
+}
+
+
+#tab2 {
+	margin: 0px 80px;
+	padding: 40px 30px;
+	border: 1px solid #1f0da8;
+	float: left;
+	background-color: #1f0da8;
+	color: white;
+	border :solid red;
+
+}
+
+#tab2 > a {
+	font-size: 20px;
+	text-decoration: none;
+	border :solid red;
+}
+
+
