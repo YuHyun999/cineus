@@ -20,6 +20,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script src = "https://code.jquery.com/jquery-latest.js"></script>
@@ -27,7 +28,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-
+	
 <!--  header.jsp에 이미 </head> 와 <body>가 있음 -->	
 <!-- </head> -->
 <!-- <body> -->
@@ -79,8 +80,16 @@
 				문의 접수 ~ 처리 완료 후 6개월<br>
 				(단, 관계법령의 규정에 의하여 보존 할 필요성이 있는 경우에는 관계 법령에 따라 보존)<br>
 				자세한 내용은 '개인정보 처리방침'을 확인하시기 바랍니다.	<br>
+				&nbsp
 			</div>
 		</div>
+		<p class = "pull-left ct10">
+			개인정보수집에 동의하십니까?<br>
+			* 원활한 서비스 이용을 위한 최소한의 개인정보이므로 동의하지 않을 경우 서비스를 이용하실 수 없습니다.
+		</p>
+		<form name = "send1on1Form">
+		
+		</form>
 	</div><!-- center1on1_container(1대1문의 전체 div박스)의 끝 -->
 </div> <!-- container width-fixed 의 끝 -->
 

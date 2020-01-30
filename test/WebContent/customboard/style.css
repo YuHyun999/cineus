@@ -2,7 +2,7 @@
 
 body {
 	margin:0;
-	font-size:18px;
+	font-size:14px;
 	font-family:'NanumGothic','³ª´®°íµñ','¸¼Àº °íµñ','Malgun Gothic','µ¸¿ò',dotum,'Apple SD Gothic Neo',sans-serif,"Cinzel";
 }
 
@@ -257,6 +257,10 @@ h2>.sub-title{
     background-color: #f9f9f9;
     color: #666;
     font-weight: 700;
+}
+
+.ct10 {
+	margin-top: 10px !important;
 }
 
 .cu10 {
@@ -820,4 +824,27 @@ h2>.sub-title{
     font-size: 14px;
     color: #333;
     margin: 34px 0 9px 25px;
+}
+
+.customer_term_wrap {
+    overflow: auto;
+    position: relative;
+    width: 970px;
+    height: 200px;
+    padding: 20px 4px 20px 24px;
+    border: 1px solid #ccc;
+}
+
+.customer_term_wrap .customer_term_text {
+    white-space: normal;
+    position: relative;
+    height: 100%;
+    padding-right: 16px;
+    line-height: 21px;
+    font-size: 12px;
+    color: #333;
+}
+
+pull-left {
+    float: left !important;
 }
