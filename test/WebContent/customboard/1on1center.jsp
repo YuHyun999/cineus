@@ -88,7 +88,9 @@
 			* 원활한 서비스 이용을 위한 최소한의 개인정보이므로 동의하지 않을 경우 서비스를 이용하실 수 없습니다.
 		</p>
 		<form name = "send1on1Form">
-		
+			<div class = "customer_radio_wrap pull_right">
+				<span class = "iradio_minimal"></span>
+			</div>
 		</form>
 	</div><!-- center1on1_container(1대1문의 전체 div박스)의 끝 -->
 </div> <!-- container width-fixed 의 끝 -->
